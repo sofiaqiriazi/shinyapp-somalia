@@ -9,9 +9,10 @@
 }
 
 .well {
-    background: #3f464b;
+    background: #fff;
     color: #fff;
-    border: none
+    border: none;
+    box-shadow: 1px 5px 20px rgba(0, 0, 0, 0.18);
 }
 
 .irs-line {
@@ -57,7 +58,7 @@
 .irs-shadow {
     height: 2px;
     top: 38px;
-    background: #000000;
+    background: #000;
     opacity: 0.3;
     border-radius: 5px;
     -moz-border-radius: 5px;
@@ -120,7 +121,11 @@
 }
 
 .selectize-input {
-    border: none;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, .1);
+    border: 1px solid #cccccc5c;
     border-radius: 2px;
+}
+
+.rChart
+{
+    width:100% !important;
 }
