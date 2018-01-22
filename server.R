@@ -676,7 +676,7 @@ shinyServer(function(input, output, session) {
     m1 <- mPlot(x = "date", y = c("Actual_Arrivals","Algorithm_1", "Algorithm_2", "Algorithm_3"), type = "Line", data = econ)
     #m1$addParams(height = 500, dom = 'graph1')
     #m1$set(xLabelFormat = "Date")
-    m1$set(lineColors=c("blue", "red", "purple", "#FF00FF"))
+    m1$set(lineColors=c("#59AB00", "#4155AF", "#132A8E", "#000E4A"))
     return(m1)
   })
 
