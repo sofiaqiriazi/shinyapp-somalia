@@ -30,7 +30,7 @@ list_regs <- rep(NA,18)
 #   list_regs[i] <- strsplit(regions[i],  "_(?=[^_]+$)",perl=TRUE)[[1]][1]
 # }
 
-list_regs <- c("Bay","Banadir","Gedo","Jubbada_Dhexe", "Jubbada_Hoose", "Shabeellaha_Dhexe", "Shabeellaha_Hoose")
+list_regs <- c("Bay","Bakool","Banadir","Gedo", "Middle Juba", "Lower Juba", "Middle Shabelle", "Lower Shabelle")
 
 shinyUI(
   # Use a fluid Bootstrap layout
@@ -55,8 +55,7 @@ shinyUI(
       # Create a spot for the barplot
       mainPanel(
         showOutput("graph1",lib="morris")
-        #,
-        #showOutput("graph2",lib="Highcharts")
+        #,showOutput("graph2",lib="Highcharts")
       )
       
     )
