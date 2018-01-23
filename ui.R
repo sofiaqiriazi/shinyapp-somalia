@@ -13,6 +13,8 @@ library(zoo)
 library(pracma)
 library(psych)
 options(RCHART_LIB = 'morris')
+options(RCHART_LIB = 'Highcharts')
+
 
 jetson <- "https://docs.google.com/spreadsheets/d/1oPTPmoJ9phtMOkp-nMB7WHnPESomLzqUj9t0gcE9bYA"
 conflicts <- gsheet2text(jetson, sheetid = 819472314)
@@ -53,6 +55,8 @@ shinyUI(
       # Create a spot for the barplot
       mainPanel(
         showOutput("graph1",lib="morris")
+        #,
+        #showOutput("graph2",lib="Highcharts")
       )
       
     )

@@ -676,8 +676,22 @@ shinyServer(function(input, output, session) {
     m1 <- mPlot(x = "date", y = c("Actual_Arrivals","Algorithm_1", "Algorithm_2", "Algorithm_3"), type = "Line", data = econ)
     #m1$addParams(height = 500, dom = 'graph1')
     #m1$set(xLabelFormat = "Date")
-    m1$set(lineColors=c("blue", "red", "purple", "#FF00FF"))
+    m1$set(lineColors=c("#59AB00", "#4155AF", "#132A8E", "#000E4A"))
     return(m1)
+  })
+  
+  output$graph2 <- renderChart2({
+    long <- pred_data()[["long"]]
+    h1 <- Highcharts$new()
+    
+    h1$chart(type = "spline")
+    h1$colors(c("#59AB00", "#4155AF", "#132A8E", "#000E4A"))
+    h1$series(data = c(1, 3, 2, 4, 5, 4, 6, 2, 3, 5, NA) , dashStyle = "shortdot", name="Algorithm_1")
+    h1$series(data = c(NA, 4, 1, 3, 4, 2, 9, 1, 2, 3, 4), dashStyle = "shortdot")
+    h1$legend(symbolWidth = 80)
+    h1$xAxis("SOfia")
+    return(h1)
+    
   })
 
 }
