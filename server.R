@@ -1084,6 +1084,16 @@ shinyServer(function(input, output, session) {
       Algorithm_2 = as.integer(PJ),
       Algorithm_3 = as.integer(PK))
 
+    long <- data.frame(
+      Date = Date,
+      Period=rep((1:len),4), 
+      Population = c(A,as.integer(PI), as.integer(PJ),as.integer(PK)), 
+      Indicator=rep(c("Actual_Arrivals", 
+                      "Algorithm_1", 
+                      "Algorithm_2",
+                      "Algorithm_3"), 
+                    each=len))
+    
     Actual_Arrivals <- A
     Model_Arrivals <- PI
     Date <- Date
@@ -1096,38 +1106,29 @@ shinyServer(function(input, output, session) {
   })
 
   #Create a graph with all the values from the inputs
-  output$graph1 <- renderChart2({
 
-    long <- pred_data()[["long"]]
-    econ <- transform(long, date = as.character(Date))
-    #econ <- transform(long, hate = as.character(Algorithm_1))
-    m1 <- mPlot(x = "date", y = c("Actual_Arrivals","Algorithm_1", "Algorithm_2", "Algorithm_3"), type = "Line", data = econ)
-    #m1$addParams(height = 500, dom = 'graph1')
-    #m1$set(xLabelFormat = "Date")
-    m1$set(lineColors=c("#59AB00", "#4155AF", "#132A8E", "#000E4A"))
-    return(m1)
-  })
-
-  # output$graph2 <- renderChart2({
-  #   long <- pred_data()[["long"]]
-  #   econ <- transform(long, Date = format(Date,"%Y %b"))
-  #   
-  #    h1 <- hPlot(x = "Date", y = c("Actual_Arrivals"), data  = econ, type = "spline")
-  #    h1$series(data = econ$Algorithm_1 , dashStyle = "shortdot", name="Algorithm_1")
-  #    h1$chart(type = "spline")
-  #    h1$colors(c("#59AB00", "#4155AF", "#132A8E", "#000E4A"))
-  # # 
-  # 
-  # #    h1$series (data = long$Actual_Arrivals)
-  #      #  h1$series(data = c(NA, 4, 1, 3, 4, 2, 9, 1, 2, 3, 4), dashStyle = "shortdot", name="Actual_Arrivals")
-  # #   h1$series(data = c(1, 3, 2, 4, 5, 4, 6, 2, 3, 5, NA) , dashStyle = "shortdot", name="Algorithm_1")
-  # #   h1$series(data = c(NA, 4, 1, 3, 4, 2, 9, 1, 2, 3, 4), dashStyle = "shortdot", name="Algorithm_2")
-  # #   h1$series(data = c(1, 3, 2, 4, 5, 4, 6, 2, 3, 5, NA) , dashStyle = "shortdot", name="Algorithm_3")
-  # # 
-  # #   h1$legend(symbolWidth = 80)
-  #    return(h1)
-  # # 
-  # })
+output$graph1 <- renderChart2({
+  df <- pred_data()[["long"]]
+  
+  # don't switch to scientific notation, since we want date to be
+  # represented in milliseconds
+  options(scipen = 13)
+  dat <- transform(df, Date2 = as.numeric(as.POSIXct(Date))*1000)
+  
+  h1 <- hPlot(Population ~ Date2, data = dat, 
+              group = 'Indicator', 
+              type = "line", 
+              radius=6
+  )
+  h1$chart(type = "spline")
+  h1$colors(c("#59AB00", "#4155AF", "#132A8E", "#000E4A"))
+  h1$xAxis(type = 'datetime', labels = list(
+    format = '{value:%Y-%b}'  
+  ))
+  
+  
+  return(h1)
+ })
 
 }
 
