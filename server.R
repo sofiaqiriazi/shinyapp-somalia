@@ -1097,7 +1097,7 @@ output$graph1 <- renderChart2({
               radius=4
   )
   h1$chart(type = "spline")
-  h1$colors(c("#59AB00", "#4155AF", "#132A8E", "#000E4A"))
+  h1$colors(c("#59AB00", "#4155AF", "#132A8E", "#0072ff"))
   h1$xAxis(type = 'datetime', labels = list(
     format = '{value:%Y-%b}'  
   ))
