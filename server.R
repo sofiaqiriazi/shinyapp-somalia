@@ -165,7 +165,7 @@ BAY_2arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+ 
   return(PA)
 }
 
@@ -203,7 +203,7 @@ BAY_14arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  
   return(PA)
 }
 
@@ -256,7 +256,6 @@ BAY_16arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 BA_SEP7arrivals <- function(start, end){
@@ -299,7 +298,6 @@ BA_SEP7arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -345,7 +343,6 @@ BA_SEP2arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -387,7 +384,6 @@ BA_SEP5arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -435,7 +431,6 @@ Minus_1arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -474,7 +469,6 @@ GE_1arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -507,7 +501,6 @@ MJ_7Xarrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 MJ_2arrivals <- function(start, end){
@@ -553,7 +546,6 @@ MJ_2arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -593,7 +585,6 @@ MJ_9arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -635,7 +626,6 @@ LJ_8arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -684,7 +674,6 @@ LJ_1Xarrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -723,7 +712,6 @@ LJ_9Xarrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -756,7 +744,6 @@ MS_3arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 MS_8arrivals <- function(start, end){
@@ -793,7 +780,6 @@ MS_8arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -827,7 +813,6 @@ MS_9arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -862,7 +847,6 @@ LS_SEPT2arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -910,7 +894,6 @@ LS_JUN2arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -964,7 +947,6 @@ LS_SEPT1arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 # Define a server for the Shiny app
@@ -1067,9 +1049,10 @@ shinyServer(function(input, output, session) {
       A <- current.long[ fmonths_start:fmonths_end, reg_arr ]
     }
     else{
-      PA <- rep(NA, len)
+      PJ <- rep(NA, len)
       PI <- rep(NA, len)
-      reg_arr <- paste("Shabeellaha_Hoose","CurrentRegion",sep="_")
+      PK <- rep(NA, len)
+      reg_arr <- paste("Bakool","CurrentRegion",sep="_")
       
       A <- current.long[ fmonths_start:fmonths_end, reg_arr ]
     }
@@ -1101,24 +1084,24 @@ shinyServer(function(input, output, session) {
   #Create a graph with all the values from the inputs
 
 output$graph1 <- renderChart2({
+  
   df <- pred_data()[["long"]]
   
   # don't switch to scientific notation, since we want date to be
   # represented in milliseconds
   options(scipen = 13)
-  dat <- transform(df, Date2 = as.numeric(as.POSIXct(Date))*1000)
+  dat <- transform(df, Date2 = as.numeric(as.POSIXct(df$Date))*1000)
   
   h1 <- hPlot(Population ~ Date2, data = dat, 
               group = 'Indicator', 
-              radius=6
+              radius=4
   )
   h1$chart(type = "spline")
   h1$colors(c("#59AB00", "#4155AF", "#132A8E", "#000E4A"))
   h1$xAxis(type = 'datetime', labels = list(
     format = '{value:%Y-%b}'  
   ))
-  
-  
+
   return(h1)
  })
 

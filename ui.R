@@ -55,7 +55,7 @@ shinyUI(
       # Create a spot for the barplot
       mainPanel(
         #showOutput("graph1",lib="morris"),
-        showOutput("graph1",lib="Highcharts")
+        showOutput("graph1",lib="highcharts")
       )
       
     )
