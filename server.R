@@ -1076,13 +1076,6 @@ shinyServer(function(input, output, session) {
 
     A<- A[1:len]
     Date <- conflicts.long$Date[fmonths_start:fmonths_end]
-    long <- data.frame(
-      Period=rep((1:len)),
-      Date= Date,
-      Actual_Arrivals = A,
-      Algorithm_1 = as.integer(PI),
-      Algorithm_2 = as.integer(PJ),
-      Algorithm_3 = as.integer(PK))
 
     long <- data.frame(
       Date = Date,
@@ -1117,7 +1110,6 @@ output$graph1 <- renderChart2({
   
   h1 <- hPlot(Population ~ Date2, data = dat, 
               group = 'Indicator', 
-              type = "line", 
               radius=6
   )
   h1$chart(type = "spline")

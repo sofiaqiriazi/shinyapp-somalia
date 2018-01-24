@@ -12,7 +12,7 @@ library(scales)
 library(zoo)
 library(pracma)
 library(psych)
-options(RCHART_LIB = 'morris')
+#options(RCHART_LIB = 'morris')
 options(RCHART_LIB = 'Highcharts')
 
 
