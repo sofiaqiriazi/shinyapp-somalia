@@ -1063,7 +1063,7 @@ shinyServer(function(input, output, session) {
     long <- data.frame(
       Date = Date,
       Period=rep((1:len),4), 
-      Population = c(A,as.integer(PI), as.integer(PJ),as.integer(PK)), 
+      Displaced_People = c(A,as.integer(PI), as.integer(PJ),as.integer(PK)), 
       Indicator=rep(c("Actual_Arrivals", 
                       "Algorithm_1", 
                       "Algorithm_2",
@@ -1092,7 +1092,7 @@ output$graph1 <- renderChart2({
   options(scipen = 13)
   dat <- transform(df, Date2 = as.numeric(as.POSIXct(df$Date))*1000)
   
-  h1 <- hPlot(Population ~ Date2, data = dat, 
+  h1 <- hPlot(Displaced_People ~ Date2, data = dat, 
               group = 'Indicator', 
               radius=4
   )
