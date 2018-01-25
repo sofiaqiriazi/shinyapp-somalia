@@ -387,6 +387,114 @@ BA_SEP5arrivals <- function(start, end){
   return(PA)
 }
 
+BK_10arrivals <- function(start, end){
+  start = 20
+  end = 97
+  len = 97
+  PI <- PA <- PD <- rep(NA, len)
+  for (t in start:end){ 
+    
+    A<- before.long[(t- 1),"Nugaal_BeforeRegion"]
+    B<- median(before.long[(t-10):(t- 1),"Mudug_BeforeRegion"], na.rm=TRUE)
+    C<- fatalities.long[(t- 1),"Mudug_Fatalities"]
+    D<- current.long[(t- 1),"Bay_CurrentRegion"]
+    E<- conflicts.long[(t- 1),"Awdal_Conflict"]
+    G<- fatalities.long[(t- 1),"Bari_Fatalities"]
+    H<- fatalities.long[(t- 4),"Shabeellaha_Dhexe_Fatalities"]
+    I<- conflicts.long[(t- 1),"Awdal_Conflict"]
+    J<- fatalities.long[(t- 4),"Shabeellaha_Dhexe_Fatalities"]
+    K<- mean(conflicts.long[(t-3):(t- 1),"Togdheer_Conflict"], na.rm=TRUE)
+    L<- mean(before.long[(t-11):(t- 1),"Woqooyi_Galbeed_BeforeRegion"], na.rm=TRUE)
+    M<- fatalities.long[(t- 1),"Togdheer_Fatalities"]
+    N<- before.long[(t- 1),"Sanaag_BeforeRegion"]
+    O<- fatalities.long[(t- 1),"Mudug_Fatalities"]
+    P<- rain.long[(t- 8),"Hiiraan_rain"]
+    Q<- mean(before.long[(t-11):(t- 1),"Woqooyi_Galbeed_BeforeRegion"], na.rm=TRUE)
+    R<- max(sum(A , B,na.rm=TRUE),sum( 0.0122292790045646*C*D , E*G*H , I*J*K , -909.166655615155,na.rm=TRUE),na.rm=TRUE)
+    if ( is.na(M) ){S<- O*P}
+    else if(M>0){S<- N }
+    else{S<- O*P }
+    U<- max(sum(1.05613075307977*R , L , -S,na.rm=TRUE), Q,na.rm=TRUE)
+    FIN <-U
+    PA[t] <- FIN
+    #Bay_Incidents
+    PI[t] <- 0
+    #Bay_Departures
+    PD[t] <- 0
+  }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  return(PA)
+}
+
+BK_4arrivals <- function(start, end){
+  start = 20
+  end = 97
+  len = 97
+  PI <- PA <- PD <- rep(NA, len)
+  for (t in start:end){ 
+    
+    A<- mean(current.long[(t-5):(t- 1),"Togdheer_CurrentRegion"], na.rm=TRUE)
+    B<- conflicts.long[(t- 1),"Hiiraan_Conflict"]
+    C<- mean(fatalities.long[(t-17):(t- 1),"Mudug_Fatalities"], na.rm=TRUE)
+    D<- before.long[(t- 1),"Bari_BeforeRegion"]
+    E<- current.long[(t- 1),"Gedo_CurrentRegion"]
+    G<- conflicts.long[(t- 1),"Jubbada_Dhexe_Conflict"]
+    H<- fatalities.long[(t- 6),"Sool_Fatalities"]
+    I<- mean(fatalities.long[(t-8):(t- 1),"Jubbada_Dhexe_Fatalities"], na.rm=TRUE)
+    J<- fatalities.long[(t- 1),"Hiiraan_Fatalities"]
+    K<- rain.long[(t- 8),"Awdal_rain"]
+    L<- median(fatalities.long[(t-4):(t- 1),"Awdal_Fatalities"], na.rm=TRUE)
+    M<- rain.long[(t- 8),"Awdal_rain"]
+    N<- future.long[(t- 7),"Sanaag_FutureRegion"]
+    O<- mean(fatalities.long[(t-6):(t- 1),"Nugaal_Fatalities"], na.rm=TRUE)
+    P<- median(fatalities.long[(t-3):(t- 1),"Nugaal_Fatalities"], na.rm=TRUE)
+    Q<- max(sum(0.311587052568519*A , B*C , 0.000518985717965901*D*E , G*H*I , J*K*L , M,na.rm=TRUE), N*O*P,na.rm=TRUE)
+    FIN <-Q
+    PA[t] <- FIN
+    #Bay_Incidents
+    PI[t] <- 0
+    #Bay_Departures
+    PD[t] <- 0
+  }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  return(PA)
+}
+
+BK_JUN6arrivals <- function(start, end){
+  start = 20
+  end = 97
+  len = 97
+  PI <- PA <- PD <- rep(NA, len)
+  for (t in start:end){ 
+    
+    A<- mean(before.long[(t-11):(t- 1),"Jubbada_Hoose_BeforeRegion"], na.rm=TRUE)
+    B<- conflicts.long[(t- 1),"Jubbada_Dhexe_Conflict"]
+    C<- before.long[(t- 1),"Sool_BeforeRegion"]
+    D<- fatalities.long[(t- 10),"Woqooyi_Galbeed_Fatalities"]
+    E<- fatalities.long[(t- 1),"Mudug_Fatalities"]
+    G<- fatalities.long[(t- 1),"Shabeellaha_Dhexe_Fatalities"]
+    H<- current.long[(t- 1),"Bay_CurrentRegion"]
+    I<- fatalities.long[(t- 1),"Mudug_Fatalities"]
+    J<- fatalities.long[(t- 5),"Woqooyi_Galbeed_Fatalities"]
+    K<- before.long[(t- 1),"Awdal_BeforeRegion"]
+    L<- floor(0.24775993583984*B)
+    M<- exp(J)
+    N<- max(135.322051921076, 2.56826319308426*M,na.rm=TRUE)
+    O<- max(sum(0.202519965668327*C*D , 0.000500013372597361*E*G*H , I , N,na.rm=TRUE), 8.04196809819944*K,na.rm=TRUE)
+    if(is.infinite(A)){A <- 0 }
+    if(is.infinite(L)){L <- 0 }
+    if(is.infinite(O)){O <- 0 }
+    FIN <-sum( A*L , O,na.rm=TRUE)
+    PA[t] <- FIN
+    #Bay_Incidents
+    PI[t] <- 0
+    #Bay_Departures
+    PD[t] <- 0
+  }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  return(PA)
+}
+
 Minus_1arrivals <- function(start, end){
   start = 20
   end = 97
@@ -1049,9 +1157,12 @@ shinyServer(function(input, output, session) {
       A <- current.long[ fmonths_start:fmonths_end, reg_arr ]
     }
     else{
-      PJ <- rep(NA, len)
-      PI <- rep(NA, len)
-      PK <- rep(NA, len)
+      PA <- BK_10arrivals(fmonths_start, fmonths_end)
+      PI <- PA[fmonths_start:fmonths_end]
+      PB <- BK_4arrivals(fmonths_start, fmonths_end)
+      PJ <- PB[fmonths_start:fmonths_end]
+      PC <- BK_JUN6arrivals(fmonths_start, fmonths_end)
+      PK <- PC[fmonths_start:fmonths_end]
       reg_arr <- paste("Bakool","CurrentRegion",sep="_")
       
       A <- current.long[ fmonths_start:fmonths_end, reg_arr ]
