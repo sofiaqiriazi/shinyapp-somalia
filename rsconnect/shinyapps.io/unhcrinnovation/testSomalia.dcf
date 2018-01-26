@@ -1,0 +1,12 @@
+name: testSomalia
+title: testSomalia
+username:
+account: unhcrinnovation
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 262655
+bundleId: 1194595
+url: https://unhcrinnovation.shinyapps.io/testSomalia/
+when: 1516984097.34529
+asMultiple: FALSE
+asStatic: FALSE

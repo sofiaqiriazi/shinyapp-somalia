@@ -11,7 +11,7 @@ library(zoo)
 library(pracma)
 library(psych)
 library(devtools)
-
+library(rmarkdown)
 
 
 # Use the google spreadsheet
@@ -573,31 +573,29 @@ GE2017_9arrivals <- function(start, end){
   return(PA)
 }
 
-GE2017_7arrivals <- function(start, end){
+GE2017_8arrivals <- function(start, end){
   start = 20
   end = 97
   len = 97
   PI <- PA <- PD <- rep(NA, len)
   for (t in start:end){ 
     
-    A<- median(before.long[(t-12):(t- 1),"Gedo_BeforeRegion"], na.rm=TRUE)
-    B<- median(before.long[(t-9):(t- 1),"Gedo_BeforeRegion"], na.rm=TRUE)
-    C<- median(future.long[(t-7):(t- 1),"Jubbada_Hoose_FutureRegion"], na.rm=TRUE)
-    D<- future.long[(t- 1),"Sool_FutureRegion"]
-    E<- before.long[(t- 1),"Bari_BeforeRegion"]
-    G<- conflicts.long[(t- 1),"Awdal_Conflict"]
-    H<- current.long[(t- 1),"Mudug_CurrentRegion"]
-    I<- rain.long[(t- 1),"Awdal_rain"]
-    J<- current.long[(t- 1),"Awdal_CurrentRegion"]
-    K<- median(before.long[(t-12):(t- 1),"Gedo_BeforeRegion"], na.rm=TRUE)
-    L<- future.long[(t- 12),"Bakool_FutureRegion"]
-    M<- mean(future.long[(t-6):(t- 1),"Banadir_FutureRegion"], na.rm=TRUE)
-    N<- max(sum(10.4697224174048*D , 2.91142676637388*E , 0.157051025533882*G*H , 0.145610671314206*I*J , K , -9855.00592900711,na.rm=TRUE),sum( L , -M,na.rm=TRUE),na.rm=TRUE)
-    O<- max(C, N,na.rm=TRUE)
-    P<- max(B, O,na.rm=TRUE)
-    if(is.infinite(A)){A <- 0 }
-    if(is.infinite(P)){P <- 0 }
-    FIN <-sum( A , P,na.rm=TRUE)
+    A<- before.long[(t- 15),"Sool_BeforeRegion"]
+    B<- fatalities.long[(t- 15),"Banaadir_Fatalities"]
+    C<- conflicts.long[(t- 1),"Woqooyi_Galbeed_Conflict"]
+    D<- rain.long[(t- 1),"Awdal_rain"]
+    E<- current.long[(t- 1),"Awdal_CurrentRegion"]
+    G<- future.long[(t- 8),"Nugaal_FutureRegion"]
+    H<- median(before.long[(t-13):(t- 1),"Gedo_BeforeRegion"], na.rm=TRUE)
+    I<- current.long[(t- 1),"Mudug_CurrentRegion"]
+    J<- future.long[(t- 2),"Bay_FutureRegion"]
+    K<- conflicts.long[(t- 1),"Awdal_Conflict"]
+    L<- future.long[(t- 6),"Togdheer_FutureRegion"]
+    M<- C%% 1.67227803400689
+    N<- max(1.67227803400689*H, 0.776560194394701*I/J,na.rm=TRUE)
+    O<- max(sum(B^M , 5.02103697060346e-7*D^2*E^2 , G , N,na.rm=TRUE), 1.93827058789905*K*L,na.rm=TRUE)
+    P<- max(A, O,na.rm=TRUE)
+    FIN <-P
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
@@ -1134,7 +1132,7 @@ shinyServer(function(input, output, session) {
       PI <- PA[fmonths_start:fmonths_end]
       PB <- GE2017_9arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
-      PC <- GE2017_7arrivals(fmonths_start, fmonths_end)
+      PC <- GE2017_8arrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
       reg_arr <- paste("Gedo","CurrentRegion",sep="_")
       
@@ -1212,11 +1210,13 @@ shinyServer(function(input, output, session) {
                     each=len))
     
     Actual_Arrivals <- A
-    Model_Arrivals <- PI
+    Model_1_Arrivals <- PI
+    Model_2_Arrivals <- PJ
+    Model_3_Arrivals <- PK
     Date <- Date
     wide <- cbind(Date = format(Date,"%Y %b"),
                   Actual_Arrivals = as.integer(Actual_Arrivals),
-                  Model_Arrivals =as.integer(Model_Arrivals))
+                  Model_Arrivals =as.integer(Model_1_Arrivals))
     list(long=long, wide=wide)
 
 
@@ -1247,15 +1247,29 @@ output$graph1 <- renderChart2({
  })
 
 # Downloadable csv of selected dataset ----
-output$downloadData <- downloadHandler(
-  filename = function() {
-    paste("regionresults", ".csv", sep = "")
-  },
-  content = function(file) {
-    
-    write.csv(pred_data()[["wide"]], file, row.names = FALSE)
-  }
-)
+# output$downloadData <- downloadHandler(
+#   filename = function() {
+#     paste("report", ".pdf", sep = "")
+#   },
+#   content = function(file) {
+#     # Copy the report file to a temporary directory before processing it, in
+#     # case we don't have write permissions to the current working dir (which
+#     # can happen when deployed).
+#     tempReport <- file.path(tempdir(), "report.Rmd")
+#     file.copy("report.Rmd", tempReport, overwrite = TRUE)
+#     
+#     # Set up parameters to pass to Rmd document
+#     params <- list(n = input$slider)
+#     
+#     # Knit the document, passing in the `params` list, and eval it in a
+#     # child of the global environment (this isolates the code in the document
+#     # from the code in this app).
+#     rmarkdown::render(tempReport, output_file = file,
+#                       params = params,
+#                       envir = new.env(parent = globalenv())
+#     )
+#   }
+# )
 
 }
 

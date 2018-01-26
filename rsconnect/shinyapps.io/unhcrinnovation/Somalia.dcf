@@ -5,8 +5,8 @@ account: unhcrinnovation
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 257996
-bundleId: 1194447
+bundleId: 1194671
 url: https://unhcrinnovation.shinyapps.io/Somalia/
-when: 1516978668.44451
+when: 1516987332.08193
 asMultiple: FALSE
 asStatic: FALSE
