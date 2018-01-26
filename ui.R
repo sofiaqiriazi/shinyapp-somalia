@@ -49,7 +49,8 @@ shinyUI(
       sidebarPanel(
         
         selectInput("region", "Region:", 
-                    choices=list_regs)
+                    choices=list_regs),
+        downloadButton("downloadData", "Download")
       ),
       
       # Create a spot for the barplot
