@@ -48,8 +48,7 @@ shinyUI(
       # Define the sidebar with one input
       sidebarPanel(
         
-        selectInput("region", "Region:", 
-                    choices=list_regs),
+        radioButtons("region", "Choose region", list_regs, selected = NULL, inline = FALSE),
         downloadButton("downloadData", "Download")
       ),
       
