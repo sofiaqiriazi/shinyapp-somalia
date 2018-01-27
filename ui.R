@@ -48,10 +48,9 @@ shinyUI(
       # Define the sidebar with one input
       sidebarPanel(
         
-        radioButtons("region", "Choose region", list_regs, selected = NULL, inline = FALSE)
-        #,
+        radioButtons("region", "Choose region", list_regs, selected = NULL, inline = FALSE),
         #sliderInput("slider", "Slider", 1, 100, 50),
-        #downloadButton("downloadData", "Generate report")
+        downloadButton("downloadData", "Generate report")
       ),
       
       # Create a spot for the barplot

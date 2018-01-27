@@ -1,17 +1,32 @@
 ---
-title: "Dynamic report"
+title: "JETSON \n JANUARY \n PREDICTION"
 output: pdf_document
 params:
   n: NA
+  m: NA
+  o: NA
 ---
 
-```{r}
-# The `params` object is available in the document.
-params$n
+Jetson is a project aimed at providing better data analytics to make better decisions to adequately prepare for contingencies in forced displacement situations. The Predictive Analytics Engine (Jetson) is an applied predictive analytics experiment taking concrete steps to provide insights on the future of displacement. 
+
+The data behind the engine is anonymized, aggregated per month and per region. Project Jetson uses machine-learning for building a nonparametric algorithm (model) for each region. The models used for each region represent the best 'fit' that can explains the behaviour of seven years of historical data.
+
+<!-- A plot of `params$n` random points. -->
+
+<!-- ```{r} -->
+<!-- plot(rnorm(params$n), rnorm(params$n)) -->
+<!-- ``` -->
+
+
+```{r echo=FALSE, results='asis'}
+library(knitr)
+kable(params$n, caption="Algorithm 1")
 ```
 
-A plot of `params$n` random points.
+```{r echo=FALSE, results='asis'}
+kable(params$m, caption="Algorithm 2")
+```
 
-```{r}
-plot(rnorm(params$n), rnorm(params$n))
+```{r echo=FALSE, results='asis'}
+kable(params$o, caption="Algorithm 3")
 ```

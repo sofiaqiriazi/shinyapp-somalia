@@ -1210,14 +1210,53 @@ shinyServer(function(input, output, session) {
                     each=len))
     
     Actual_Arrivals <- A
+    
     Model_1_Arrivals <- PI
+    Accuracy_Model_1 <- A-PI
+    Percentage_1 <- A/Accuracy_Model_1
+    Percentage_1[is.na(Percentage_1)] <- " "
+    
     Model_2_Arrivals <- PJ
+    Accuracy_Model_2 <- A-PJ
+    Percentage_2 <- A/Accuracy_Model_2
+    Percentage_2[is.na(Percentage_2)] <- " "
+    
+        
     Model_3_Arrivals <- PK
+    Accuracy_Model_3 <- A-PK
+    Percentage_3 <- A/Accuracy_Model_3
+    Percentage_3[is.na(Percentage_3)] <- " "
+    
     Date <- Date
-    wide <- cbind(Date = format(Date,"%Y %b"),
+    
+    a1 <- cbind(Date = format(Date,"%Y %b"),
                   Actual_Arrivals = as.integer(Actual_Arrivals),
-                  Model_Arrivals =as.integer(Model_1_Arrivals))
-    list(long=long, wide=wide)
+                  Model_1 = as.integer(Model_1_Arrivals),
+                  Accuracy_1 = as.integer(Accuracy_Model_1),
+                  Percentage = paste(as.character( as.integer(Percentage_1)),"%",sep=""))
+
+    a1 <- as.data.frame(a1)
+    
+    
+    a2 <- cbind(Date = format(Date,"%Y %b"),
+                Actual_Arrivals = as.integer(Actual_Arrivals),
+                Model_2 = as.integer(Model_2_Arrivals),
+                Accuracy_2 = as.integer(Accuracy_Model_2),
+                Percentage = paste(as.character( as.integer(Percentage_2)),"%",sep=""))
+    
+    a2 <- as.data.frame(a2)
+    
+    a3 <- cbind(Date = format(Date,"%Y %b"),
+                Actual_Arrivals = as.integer(Actual_Arrivals),
+                Model_3 = as.integer(Model_3_Arrivals),
+                Accuracy_3 = as.integer(Accuracy_Model_3),
+                Percentage = paste(as.character( as.integer(Percentage_3)),"%",sep=""))
+    
+    a3 <- as.data.frame(a3)
+    
+    
+    
+    list(long=long, a1=a1, a2=a2, a3=a3)
 
 
   })
@@ -1246,30 +1285,32 @@ output$graph1 <- renderChart2({
   return(h1)
  })
 
-# Downloadable csv of selected dataset ----
-# output$downloadData <- downloadHandler(
-#   filename = function() {
-#     paste("report", ".pdf", sep = "")
-#   },
-#   content = function(file) {
-#     # Copy the report file to a temporary directory before processing it, in
-#     # case we don't have write permissions to the current working dir (which
-#     # can happen when deployed).
-#     tempReport <- file.path(tempdir(), "report.Rmd")
-#     file.copy("report.Rmd", tempReport, overwrite = TRUE)
-#     
-#     # Set up parameters to pass to Rmd document
-#     params <- list(n = input$slider)
-#     
-#     # Knit the document, passing in the `params` list, and eval it in a
-#     # child of the global environment (this isolates the code in the document
-#     # from the code in this app).
-#     rmarkdown::render(tempReport, output_file = file,
-#                       params = params,
-#                       envir = new.env(parent = globalenv())
-#     )
-#   }
-# )
+#Downloadable csv of selected dataset ----
+output$downloadData <- downloadHandler(
+  filename = function() {
+    paste("report", ".pdf", sep = "")
+  },
+  content = function(file) {
+    # Copy the report file to a temporary directory before processing it, in
+    # case we don't have write permissions to the current working dir (which
+    # can happen when deployed).
+    tempReport <- file.path(tempdir(), "report.Rmd")
+    file.copy("report.Rmd", tempReport, overwrite = TRUE)
+
+    # Set up parameters to pass to Rmd document
+    params <- list(n = pred_data()[["a1"]],
+                   m = pred_data()[["a2"]],
+                   o = pred_data()[["a3"]])
+
+    # Knit the document, passing in the `params` list, and eval it in a
+    # child of the global environment (this isolates the code in the document
+    # from the code in this app).
+    rmarkdown::render(tempReport, output_file = file,
+                      params = params,
+                      envir = new.env(parent = globalenv())
+    )
+  }
+)
 
 }
 
