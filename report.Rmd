@@ -18,15 +18,34 @@ The data behind the engine is anonymized, aggregated per month and per region. P
 <!-- ``` -->
 
 
+
 ```{r echo=FALSE, results='asis'}
 library(knitr)
-kable(params$n, caption="Algorithm 1")
+kable(params$n)
+```
+
+```{r echo=FALSE, warning=FALSE}
+library(ggplot2)
+ggplot(params$n, aes(Date)) + geom_line(aes(y = Model_1,colour="Predicted")) + geom_line(aes(y = Actual_Arrivals,colour="Actual")) +
+  scale_x_date(labels=date_format("%b %y")) + xlab("") + ylab("Arrivals")
 ```
 
 ```{r echo=FALSE, results='asis'}
-kable(params$m, caption="Algorithm 2")
+kable(params$m)
+```
+
+```{r echo=FALSE, warning=FALSE}
+
+ggplot(params$m, aes(Date)) + geom_line(aes(y = Model_2,colour="Predicted")) + geom_line(aes(y = Actual_Arrivals,colour="Actual")) +
+  scale_x_date(labels=date_format("%b %y")) + xlab("") + ylab("Arrivals")
 ```
 
 ```{r echo=FALSE, results='asis'}
-kable(params$o, caption="Algorithm 3")
+kable(params$o)
+```
+
+```{r echo=FALSE, warning=FALSE}
+
+ggplot(params$o, aes(Date)) + geom_line(aes(y = Model_3,colour="Predicted")) + geom_line(aes(y = Actual_Arrivals,colour="Actual")) +
+  scale_x_date(labels=date_format("%b %y")) + xlab("") + ylab("Arrivals")
 ```

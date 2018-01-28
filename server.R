@@ -1229,30 +1229,32 @@ shinyServer(function(input, output, session) {
     
     Date <- Date
     
-    a1 <- cbind(Date = format(Date,"%Y %b"),
+    a1 <- data.frame(Date = format(Date,"%Y-%m-%d"),
                   Actual_Arrivals = as.integer(Actual_Arrivals),
                   Model_1 = as.integer(Model_1_Arrivals),
                   Accuracy_1 = as.integer(Accuracy_Model_1),
                   Percentage = paste(as.character( as.integer(Percentage_1)),"%",sep=""))
 
-    a1 <- as.data.frame(a1)
     
+    a1$Date <- as.Date(a1$Date, format = "%Y-%m-%d")
     
-    a2 <- cbind(Date = format(Date,"%Y %b"),
+    Date <- Date
+    
+    a2 <- data.frame(Date = a1$Date,
                 Actual_Arrivals = as.integer(Actual_Arrivals),
                 Model_2 = as.integer(Model_2_Arrivals),
                 Accuracy_2 = as.integer(Accuracy_Model_2),
                 Percentage = paste(as.character( as.integer(Percentage_2)),"%",sep=""))
     
-    a2 <- as.data.frame(a2)
+    a2$Date <- as.Date(a2$Date, format = "%Y-%m-%d")
     
-    a3 <- cbind(Date = format(Date,"%Y %b"),
+    a3 <- data.frame(Date = a1$Date,
                 Actual_Arrivals = as.integer(Actual_Arrivals),
                 Model_3 = as.integer(Model_3_Arrivals),
                 Accuracy_3 = as.integer(Accuracy_Model_3),
                 Percentage = paste(as.character( as.integer(Percentage_3)),"%",sep=""))
     
-    a3 <- as.data.frame(a3)
+    a3$Date <- as.Date(a3$Date, format = "%Y-%m-%d")
     
     
     
