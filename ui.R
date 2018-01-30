@@ -30,36 +30,39 @@ list_regs <- rep(NA,18)
 #   list_regs[i] <- strsplit(regions[i],  "_(?=[^_]+$)",perl=TRUE)[[1]][1]
 # }
 
-list_regs <- c("Bay","Bakool","Banadir","Gedo", "Middle Juba", "Lower Juba", "Middle Shabelle", "Lower Shabelle")
+list_regs <- c("Bay","Bakool","Banadir","Gedo", "Middle Juba", "Lower Juba", "Middle Shabelle", "Lower Shabelle", "Hiiraan")
 
 shinyUI(
   # Use a fluid Bootstrap layout
-  fluidPage(  
+  fluidPage(
     tags$head(
       tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
       tags$script(src="main.js")
     ),
-    
+
     # Give the page a title
     titlePanel("Predictive Engine: Project JETSON"),
-    
+    p("Jetson is a project aimed at providing better data analytics to make better decisions to adequately prepare for contingencies in forced displacement situations. The Predictive Analytics Engine (Jetson) is an applied predictive analytics experiment taking concrete steps to provide insights on the future of displacement.
+
+The data behind the engine is anonymized, aggregated per month and per region. Project Jetson uses machine-learning for building a nonparametric algorithm (model) for each region. The models used for each region represent the best 'fit' that can explains the behaviour of seven years of historical data.
+"),
     # Generate a row with a sidebar
-    sidebarLayout(      
+    sidebarLayout(
       # Define the sidebar with one input
       sidebarPanel(
-        
+
         radioButtons("region", "Choose region", list_regs, selected = NULL, inline = FALSE),
         #sliderInput("slider", "Slider", 1, 100, 50),
         downloadButton("downloadData", "Generate report"),
         downloadButton("downloadCsv", "Generate csv")
       ),
-      
+
       # Create a spot for the barplot
       mainPanel(
         #showOutput("graph1",lib="morris"),
         showOutput("graph1",lib="highcharts")
       )
-      
+
     )
   )
 )
