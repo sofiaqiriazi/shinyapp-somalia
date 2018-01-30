@@ -1231,9 +1231,7 @@ shinyServer(function(input, output, session) {
     
     a1 <- data.frame(Date = format(Date,"%Y-%m-%d"),
                   Actual_Arrivals = as.integer(Actual_Arrivals),
-                  Model_1 = as.integer(Model_1_Arrivals),
-                  Accuracy_1 = as.integer(Accuracy_Model_1),
-                  Percentage = paste(as.character( as.integer(Percentage_1)),"%",sep=""))
+                  Model_1 = as.integer(Model_1_Arrivals))
 
     
     a1$Date <- as.Date(a1$Date, format = "%Y-%m-%d")
@@ -1242,23 +1240,23 @@ shinyServer(function(input, output, session) {
     
     a2 <- data.frame(Date = a1$Date,
                 Actual_Arrivals = as.integer(Actual_Arrivals),
-                Model_2 = as.integer(Model_2_Arrivals),
-                Accuracy_2 = as.integer(Accuracy_Model_2),
-                Percentage = paste(as.character( as.integer(Percentage_2)),"%",sep=""))
+                Model_2 = as.integer(Model_2_Arrivals))
     
     a2$Date <- as.Date(a2$Date, format = "%Y-%m-%d")
     
     a3 <- data.frame(Date = a1$Date,
                 Actual_Arrivals = as.integer(Actual_Arrivals),
-                Model_3 = as.integer(Model_3_Arrivals),
-                Accuracy_3 = as.integer(Accuracy_Model_3),
-                Percentage = paste(as.character( as.integer(Percentage_3)),"%",sep=""))
+                Model_3 = as.integer(Model_3_Arrivals))
     
     a3$Date <- as.Date(a3$Date, format = "%Y-%m-%d")
     
+    wide <- cbind(Date = format(Date,"%Y %b"),
+              Actual_Arrivals = as.integer(Actual_Arrivals),
+              Model1_Predictions = as.integer(Model_1_Arrivals),
+              Model2_Predictions = as.integer(Model_2_Arrivals),
+              Model3_Predictions = as.integer(Model_3_Arrivals))
     
-    
-    list(long=long, a1=a1, a2=a2, a3=a3)
+    list(long=long, wide=wide, a1=a1, a2=a2, a3=a3)
 
 
   })
@@ -1311,6 +1309,17 @@ output$downloadData <- downloadHandler(
                       params = params,
                       envir = new.env(parent = globalenv())
     )
+  }
+)
+
+
+#Downloadable csv of selected dataset ----
+output$downloadCsv <- downloadHandler(
+  filename = function() {
+    paste("data", ".csv", sep = "")
+  },
+  content = function(file) {
+    write.csv(pred_data()[["wide"]], file, row.names = FALSE)
   }
 )
 
