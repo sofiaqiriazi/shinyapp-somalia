@@ -1250,7 +1250,7 @@ shinyServer(function(input, output, session) {
     
     a3$Date <- as.Date(a3$Date, format = "%Y-%m-%d")
     
-    wide <- cbind(Date = format(Date,"%Y %b"),
+    wide <- cbind(Date = format (Date,"%Y%b"),
               Actual_Arrivals = as.integer(Actual_Arrivals),
               Model1_Predictions = as.integer(Model_1_Arrivals),
               Model2_Predictions = as.integer(Model_2_Arrivals),
