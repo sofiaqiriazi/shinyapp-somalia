@@ -30,7 +30,7 @@ list_regs <- rep(NA,18)
 #   list_regs[i] <- strsplit(regions[i],  "_(?=[^_]+$)",perl=TRUE)[[1]][1]
 # }
 
-list_regs <- c("Bay","Bakool","Banadir","Gedo", "Middle Juba", "Lower Juba", "Middle Shabelle", "Lower Shabelle", "Hiiraan")
+list_regs <- c("Bay","Bakool","Banadir","Gedo", "Middle Juba", "Lower Juba", "Middle Shabelle", "Lower Shabelle", "Hiiraan", "Galgaduud")
 
 shinyUI(
   # Use a fluid Bootstrap layout
