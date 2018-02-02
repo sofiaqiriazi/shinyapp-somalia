@@ -1,3 +1,18 @@
+h2
+{
+    color:#000E4A;
+}
+
+p 
+{
+    font-size:18px;
+    font-weight:400;
+    color:#666;
+    line-height:24px;
+    margin-bottom:30px;
+}
+
+
 .shiny-server-account {
     visibility: hidden
 }
