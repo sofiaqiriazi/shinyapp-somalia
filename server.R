@@ -1408,34 +1408,35 @@ MU_4arrivals <- function(start, end){
   return(PA)
 }
 
-MU_10arrivals <- function(start, end){
+MU_JUN10arrivals <- function(start, end){
   start = 20
   end = 97
   len = 97
   PI <- PA <- PD <- rep(NA, len)
   for (t in start:end){ 
     
-    A<- current.long[(t- 7),"Hiiraan_CurrentRegion"]
-    B<- conflicts.long[(t- 4),"Galgaduud_Conflict"]
-    C<- before.long[(t- 1),"Mudug_BeforeRegion"]
-    D<- mean(before.long[(t-3):(t- 1),"Nugaal_BeforeRegion"], na.rm=TRUE)
-    E<- fatalities.long[(t- 7),"Hiiraan_Fatalities"]
-    G<- fatalities.long[(t- 7),"Hiiraan_Fatalities"]
-    H<- mean(conflicts.long[(t-4):(t- 1),"Sanaag_Conflict"], na.rm=TRUE)
-    I<- before.long[(t- 1),"Mudug_BeforeRegion"]
-    J<- mean(fatalities.long[(t-10):(t- 1),"Hiiraan_Fatalities"], na.rm=TRUE)
-    K<- before.long[(t- 1),"Bari_BeforeRegion"]
-    L<- fatalities.long[(t- 1),"Togdheer_Fatalities"]
-    M<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
-    N<- future.long[(t- 1),"Mudug_FutureRegion"]
-    O<- goats.long[(t- 1),"Jubbada_Dhexe_goatprice"]
-    P<- gauss(B)
-    Q<- max(sum(G*H , 0.00169426465105935*I*J , K,na.rm=TRUE), 0.086700453838862*L*M,na.rm=TRUE)
-    R<- max(sum(0.00169426465105935*C*D , E , Q,na.rm=TRUE), 1.12100361377874e-6*N*O,na.rm=TRUE)
+    A<- stations.long[(t- 5),"Gedo_DollowStation_Juba_River"]
+    B<- median(before.long[(t-17):(t- 1),"Galgaduud_BeforeRegion"], na.rm=TRUE)
+    C<- fatalities.long[(t- 9),"Banaadir_Fatalities"]
+    D<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    E<- future.long[(t- 1),"Mudug_FutureRegion"]
+    G<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
+    H<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    I<- before.long[(t- 1),"Nugaal_BeforeRegion"]
+    J<- fatalities.long[(t- 1),"Togdheer_Fatalities"]
+    K<- before.long[(t- 1),"Sool_BeforeRegion"]
+    L<- future.long[(t- 1),"Mudug_FutureRegion"]
+    M<- current.long[(t- 1),"Sool_CurrentRegion"]
+    N<- max(0.0800779194446178*D, 0.00271950669257233*E*G,na.rm=TRUE)
+    O<- max(0.00166758144357052*H*I, 0.0171409057854938*J^2*K,na.rm=TRUE)
     if(is.infinite(A)){A <- 0 }
-    if(is.infinite(P)){P <- 0 }
-    if(is.infinite(R)){R <- 0 }
-    FIN <-sum( A*P , R,na.rm=TRUE)
+    if(is.infinite(B)){B <- 0 }
+    if(is.infinite(C)){C <- 0 }
+    if(is.infinite(N)){N <- 0 }
+    if(is.infinite(O)){O <- 0 }
+    if(is.infinite(L)){L <- 0 }
+    if(is.infinite(M)){M <- 0 }
+    FIN <-sum( A*B , C , N , O , -0.000323983700711987*L*M,na.rm=TRUE)
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
@@ -1584,7 +1585,7 @@ shinyServer(function(input, output, session) {
       PI <- PA[fmonths_start:fmonths_end]
       PB <- MU_4arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
-      PC <- MU_10arrivals(fmonths_start, fmonths_end)
+      PC <- MU_JUN10arrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
       reg_arr <- paste("Galgaduud","CurrentRegion",sep="_")
       
