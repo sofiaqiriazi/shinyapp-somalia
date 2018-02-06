@@ -12,7 +12,7 @@ library(pracma)
 library(psych)
 library(devtools)
 library(rmarkdown)
-
+library(astro)
 
 # Use the google spreadsheet
 jetson <- "https://docs.google.com/spreadsheets/d/1oPTPmoJ9phtMOkp-nMB7WHnPESomLzqUj9t0gcE9bYA"
@@ -1339,6 +1339,113 @@ GA_10arrivals <- function(start, end){
   write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
+
+MU_8arrivals <- function(start, end){
+  start = 20
+  end = 97
+  len = 97
+  PI <- PA <- PD <- rep(NA, len)
+  for (t in start:end){ 
+    
+    A<- future.long[(t- 1),"Mudug_FutureRegion"]
+    B<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
+    C<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    D<- before.long[(t- 1),"Nugaal_BeforeRegion"]
+    E<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    G<- fatalities.long[(t- 1),"Togdheer_Fatalities"]
+    H<- before.long[(t- 1),"Sool_BeforeRegion"]
+    I<- median(goats.long[(t-7):(t- 1),"Jubbada_Hoose_goatprice"], na.rm=TRUE)
+    J<- before.long[(t- 1),"Nugaal_BeforeRegion"]
+    K<- future.long[(t- 1),"Mudug_FutureRegion"]
+    L<- max(0.00261480818215121*A*B, 0.00192570076831578*C*D,na.rm=TRUE)
+    M<- max(sum(1308.09744269207 , 0.0710002343237065*E,na.rm=TRUE), 0.133365272374889*G*H,na.rm=TRUE)
+    N<- max(sum(L , M , -0.00121468663844687*I , -0.00137951749630371*J*K,na.rm=TRUE), 105.263897378436,na.rm=TRUE)
+    FIN <-N
+    PA[t] <- FIN
+    #Bay_Incidents
+    PI[t] <- 0
+    #Bay_Departures
+    PD[t] <- 0
+  }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  return(PA)
+}
+
+MU_4arrivals <- function(start, end){
+  start = 20
+  end = 97
+  len = 97
+  PI <- PA <- PD <- rep(NA, len)
+  for (t in start:end){ 
+    
+    A<- fatalities.long[(t- 9),"Banaadir_Fatalities"]
+    B<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    C<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    D<- before.long[(t- 1),"Nugaal_BeforeRegion"]
+    E<- fatalities.long[(t- 7),"Hiiraan_Fatalities"]
+    G<- median(conflicts.long[(t-4):(t- 1),"Togdheer_Conflict"], na.rm=TRUE)
+    H<- median(before.long[(t-10):(t- 1),"Togdheer_BeforeRegion"], na.rm=TRUE)
+    I<- future.long[(t- 1),"Mudug_FutureRegion"]
+    J<- goats.long[(t- 1),"Jubbada_Dhexe_goatprice"]
+    K<- conflicts.long[(t- 8),"Gedo_Conflict"]
+    L<- fatalities.long[(t- 1),"Togdheer_Fatalities"]
+    M<- before.long[(t- 1),"Sool_BeforeRegion"]
+    if ( is.na(K) ){N<- 3566}
+    else if(K>0){N<- 0.018337678491588*L^2*M }
+    else{N<- 3566 }
+    O<- max(1.12027672959086e-6*I*J, N,na.rm=TRUE)
+    P<- max(sum(0.0903165409865906*B , 0.001762031889232*C*D , E*G , H,na.rm=TRUE), O,na.rm=TRUE)
+    if(is.infinite(A)){A <- 0 }
+    if(is.infinite(P)){P <- 0 }
+    FIN <-sum( A , P,na.rm=TRUE)
+    PA[t] <- FIN
+    #Bay_Incidents
+    PI[t] <- 0
+    #Bay_Departures
+    PD[t] <- 0
+  }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  return(PA)
+}
+
+MU_10arrivals <- function(start, end){
+  start = 20
+  end = 97
+  len = 97
+  PI <- PA <- PD <- rep(NA, len)
+  for (t in start:end){ 
+    
+    A<- current.long[(t- 7),"Hiiraan_CurrentRegion"]
+    B<- conflicts.long[(t- 4),"Galgaduud_Conflict"]
+    C<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    D<- mean(before.long[(t-3):(t- 1),"Nugaal_BeforeRegion"], na.rm=TRUE)
+    E<- fatalities.long[(t- 7),"Hiiraan_Fatalities"]
+    G<- fatalities.long[(t- 7),"Hiiraan_Fatalities"]
+    H<- mean(conflicts.long[(t-4):(t- 1),"Sanaag_Conflict"], na.rm=TRUE)
+    I<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    J<- mean(fatalities.long[(t-10):(t- 1),"Hiiraan_Fatalities"], na.rm=TRUE)
+    K<- before.long[(t- 1),"Bari_BeforeRegion"]
+    L<- fatalities.long[(t- 1),"Togdheer_Fatalities"]
+    M<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
+    N<- future.long[(t- 1),"Mudug_FutureRegion"]
+    O<- goats.long[(t- 1),"Jubbada_Dhexe_goatprice"]
+    P<- gauss(B)
+    Q<- max(sum(G*H , 0.00169426465105935*I*J , K,na.rm=TRUE), 0.086700453838862*L*M,na.rm=TRUE)
+    R<- max(sum(0.00169426465105935*C*D , E , Q,na.rm=TRUE), 1.12100361377874e-6*N*O,na.rm=TRUE)
+    if(is.infinite(A)){A <- 0 }
+    if(is.infinite(P)){P <- 0 }
+    if(is.infinite(R)){R <- 0 }
+    FIN <-sum( A*P , R,na.rm=TRUE)
+    PA[t] <- FIN
+    #Bay_Incidents
+    PI[t] <- 0
+    #Bay_Departures
+    PD[t] <- 0
+  }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  return(PA)
+}
+
 # Define a server for the Shiny app
 # the ids refer to the google sheet refering to the special identifier
 shinyServer(function(input, output, session) {
@@ -1466,6 +1573,18 @@ shinyServer(function(input, output, session) {
       PB <- GA_4arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
       PC <- GA_10arrivals(fmonths_start, fmonths_end)
+      PK <- PC[fmonths_start:fmonths_end]
+      reg_arr <- paste("Galgaduud","CurrentRegion",sep="_")
+      
+      A <- current.long[ fmonths_start:fmonths_end, reg_arr ]
+    }
+    
+    else if(region == "Mudug"){
+      PA <- MU_8arrivals(fmonths_start, fmonths_end)
+      PI <- PA[fmonths_start:fmonths_end]
+      PB <- MU_4arrivals(fmonths_start, fmonths_end)
+      PJ <- PB[fmonths_start:fmonths_end]
+      PC <- MU_10arrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
       reg_arr <- paste("Galgaduud","CurrentRegion",sep="_")
       
