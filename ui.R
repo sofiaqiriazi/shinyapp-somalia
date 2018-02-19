@@ -31,7 +31,7 @@ list_regs <- rep(NA,18)
 # }
 
 list_regs <- c("Bay","Bakool","Banadir","Gedo", "Middle Juba", "Lower Juba", 
-               "Middle Shabelle", "Lower Shabelle", "Hiiraan", "Galgaduud", "Mudug")
+               "Middle Shabelle", "Lower Shabelle", "Hiiraan", "Galgaduud", "Mudug","Nugaal", "Bari")
 
 shinyUI(
   # Use a fluid Bootstrap layout
