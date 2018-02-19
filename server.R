@@ -125,64 +125,72 @@ date_index <- function(x){
   index <- which(conflicts.long$Date== monthStart(full.date))
   return(index)
 }
-BAY_A1arrivals <- function(start, end){
-  start = 20
-  
-  PI <- PA <- PD <- rep(NA,end)
-  for (t in start:end){ 
-    
-    A<- current.long[(t- 1),"Awdal_CurrentRegion"]
-    B<- future.long[(t- 1),"Sanaag_FutureRegion"]
-    C<- current.long[(t- 1),"Sanaag_CurrentRegion"]
-    D<- future.long[(t- 10),"Nugaal_FutureRegion"]
-    E<- before.long[(t- 1),"Bari_BeforeRegion"]
-    G<- before.long[(t- 1),"Woqooyi_Galbeed_BeforeRegion"]
-    H<- future.long[(t- 3),"Nugaal_FutureRegion"]
-    I<- mean(future.long[(t-13):(t- 1),"Shabeellaha_Hoose_FutureRegion"], na.rm=TRUE)
-    J<- mean(current.long[(t-3):(t- 1),"Togdheer_CurrentRegion"], na.rm=TRUE)
-    K<- median(current.long[(t-12):(t- 1),"Jubbada_Dhexe_CurrentRegion"], na.rm=TRUE)
-    L<- max(sum(4.84503108841733*A , 1.70406507425211*B , 1.70406507425211*C , 2.02606412957083*D , 2.34737505506137e-8*E^3*G , H , -I , -0.396277558619911*J,na.rm=TRUE), K,na.rm=TRUE)
-    FIN <-L
-    PA[t] <- FIN
-    #Bay_Incidents
-    PI[t] <- 0
-    #Bay_Departures
-    PD[t] <- 0
-  }
-  #write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
-  return(PA)
-}
-
-BAY_12arrivals <- function(start, end){
+BAY_1arrivals <- function(start, end){
   start = 20
   
   PI <- PA <- PD <- rep(NA, end)
   for (t in start:end){ 
     
-    A<- future.long[(t- 1),"Sanaag_FutureRegion"]
-    B<- current.long[(t- 1),"Sanaag_CurrentRegion"]
-    C<- before.long[(t- 1),"Bay_BeforeRegion"]
-    D<- median(conflicts.long[(t-4):(t- 1),"Jubbada_Dhexe_Conflict"], na.rm=TRUE)
-    E<- before.long[(t- 1),"Gedo_BeforeRegion"]
-    G<- conflicts.long[(t- 5),"Hiiraan_Conflict"]
-    H<- future.long[(t- 3),"Nugaal_FutureRegion"]
-    I<- mean(current.long[(t-11):(t- 1),"Woqooyi_Galbeed_CurrentRegion"], na.rm=TRUE)
-    J<- median(before.long[(t-9):(t- 1),"Bay_BeforeRegion"], na.rm=TRUE)
-    K<- fatalities.long[(t- 5),"Woqooyi_Galbeed_Fatalities"]
-    L<- rain.long[(t- 1),"Shabeellaha_Dhexe_rain"]
-    M<- factorial(G)
-    N<- factorial(K)
-    O<- max(sum(1.76598174585614*A , 4.94630290273755e-5*B^2 , 2.97984436675825e-5*C^2*D , 1.76598174585614*E/M , H , I , J,na.rm=TRUE), N,na.rm=TRUE)
-    if(is.infinite(O)){O <- 0 }
-    if(is.infinite(L)){L <- 0 }
-    FIN <-sum( O , -L,na.rm=TRUE)
+    A<- before.long[(t- 1),"Bari_BeforeRegion"]
+    B<- before.long[(t- 5),"Bari_BeforeRegion"]
+    C<- rain.long[(t- 16),"Bari_rain"]
+    D<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    E<- before.long[(t- 1),"Shabeellaha_Dhexe_BeforeRegion"]
+    G<- water.long[(t- 1),"Bakool_WaterDrumPrice"]
+    H<- current.long[(t- 1),"Awdal_CurrentRegion"]
+    I<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    J<- conflicts.long[(t- 1),"Awdal_Conflict"]
+    K<- rain.long[(t- 16),"Bari_rain"]
+    L<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    M<- before.long[(t- 1),"Shabeellaha_Dhexe_BeforeRegion"]
+    N<- fatalities.long[(t- 1),"Bari_Fatalities"]
+    O<- before.long[(t- 1),"Banadir_BeforeRegion"]
+    P<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    if ( is.na(C) ){Q<- I}
+    else if(C>0){Q<-sum( 0.00216084551123691*D*E , 0.000112512408566433*G*H,na.rm=TRUE) }
+    else{Q<- I }
+    R<- exp(J)
+    S<- tan(0.00216084551123691*L*M)
+    U<- max(R*K*S, 0.00833736411871744*N*O,na.rm=TRUE)
+    if(is.infinite(A)){A <- 0 }
+    if(is.infinite(B)){B <- 0 }
+    if(is.infinite(Q)){Q <- 0 }
+    if(is.infinite(U)){U <- 0 }
+    if(is.infinite(P)){P <- 0 }
+    FIN <-sum( A , B , Q , U , -0.448385126774561*P,na.rm=TRUE)
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
     #Bay_Departures
     PD[t] <- 0
   }
-  #write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  return(PA)
+}
+BAY_A4arrivals <- function(start, end){
+  start = 23
+  
+  PI <- PA <- PD <- rep(NA, end)
+  for (t in start:end){ 
+    
+    A<- mean(fatalities.long[(t-9):(t- 1),"Shabeellaha_Dhexe_Fatalities"], na.rm=TRUE)
+    B<- mean(current.long[(t-23):(t- 1),"Awdal_CurrentRegion"], na.rm=TRUE)
+    C<- mean(fatalities.long[(t-9):(t- 1),"Shabeellaha_Dhexe_Fatalities"], na.rm=TRUE)
+    D<- cos(C)
+    if ( is.na(-56.1324545145847) || is.na( D)){E<-0}
+    else if(-56.1324545145847> D){E<-1 }
+    else{E<-0 }
+    if(is.infinite(A)){A <- 0 }
+    if(is.infinite(B)){B <- 0 }
+    if(is.infinite(E)){E <- 0 }
+    FIN <-sum( A*B , E,na.rm=TRUE)
+    PA[t] <- FIN
+    #Bay_Incidents
+    PI[t] <- 0
+    #Bay_Departures
+    PD[t] <- 0
+  }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
@@ -215,10 +223,9 @@ BAY_13arrivals <- function(start, end){
     #Bay_Departures
     PD[t] <- 0
   }
-  #write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
-
 
 BA_2arrivals <- function(start, end){
   start = 20
@@ -549,28 +556,37 @@ GE_9arrivals <- function(start, end){
   return(PA)
 }
 
-GE_10arrivals <- function(start, end){
+
+
+GE_8arrivals <- function(start, end){
   start = 20
   
   PI <- PA <- PD <- rep(NA, end)
   for (t in start:end){ 
     
-    A<- median(before.long[(t-10):(t- 1),"Bay_BeforeRegion"], na.rm=TRUE)
-    B<- rain.long[(t- 15),"Jubbada_Hoose_rain"]
-    C<- rain.long[(t- 16),"Jubbada_Hoose_rain"]
+    A<- future.long[(t- 13),"Nugaal_FutureRegion"]
+    B<- mean(fatalities.long[(t-5):(t- 1),"Shabeellaha_Dhexe_Fatalities"], na.rm=TRUE)
+    C<- future.long[(t- 1),"Sool_FutureRegion"]
     D<- current.long[(t- 1),"Awdal_CurrentRegion"]
-    E<- mean(stations.long[(t-7):(t- 1),"Shabelle_Dhexe_JowharStation_Shabelle_River"], na.rm=TRUE)
-    G<- median(fatalities.long[(t-6):(t- 1),"Nugaal_Fatalities"], na.rm=TRUE)
-    H<- current.long[(t- 17),"Bay_CurrentRegion"]
-    I<- future.long[(t- 7),"Sanaag_FutureRegion"]
-    J<- mean(fatalities.long[(t-3):(t- 1),"Bari_Fatalities"], na.rm=TRUE)
-    K<- current.long[(t- 7),"Nugaal_CurrentRegion"]
-    L<- median(before.long[(t-14):(t- 1),"Bay_BeforeRegion"], na.rm=TRUE)
-    M<- conflicts.long[(t- 1),"Awdal_Conflict"]
-    N<- current.long[(t- 1),"Mudug_CurrentRegion"]
-    O<- max(sum(0.106674930219957*H , 0.836318096733023*I*J , K , L,na.rm=TRUE), 0.0727443916219675*M*N,na.rm=TRUE)
-    P<- max(sum(0.836318096733023*A , B*C , D*E*G,na.rm=TRUE), O,na.rm=TRUE)
-    FIN <-P
+    E<- conflicts.long[(t- 1),"Mudug_Conflict"]
+    G<- stations.long[(t- 15),"Hiiraan_Bulo_Burti_StationShabelle_River"]
+    H<- rain.long[(t- 1),"Awdal_rain"]
+    I<- fatalities.long[(t- 1),"Bari_Fatalities"]
+    J<- current.long[(t- 1),"Awdal_CurrentRegion"]
+    K<- median(before.long[(t-12):(t- 1),"Gedo_BeforeRegion"], na.rm=TRUE)
+    L<- future.long[(t- 6),"Nugaal_FutureRegion"]
+    M<- fatalities.long[(t- 5),"Woqooyi_Galbeed_Fatalities"]
+    N<- current.long[(t- 5),"Sanaag_CurrentRegion"]
+    O<- factorial(G)
+    if ( is.na(H) || is.na( I)){P<-0}
+    else if(H>= I){P<-1 }
+    else{P<-0 }
+    Q<- max(J, 1.88198220182139*K,na.rm=TRUE)
+    R<- max(sum(0.00552424283367903*C*D , 0.897023768717364*E*O*P , Q , -L,na.rm=TRUE), M*N,na.rm=TRUE)
+    if(is.infinite(A)){A <- 0 }
+    if(is.infinite(B)){B <- 0 }
+    if(is.infinite(R)){R <- 0 }
+    FIN <-sum( A*B , R,na.rm=TRUE)
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
@@ -582,11 +598,11 @@ GE_10arrivals <- function(start, end){
 }
 
 
-
 MJ_7Xarrivals <- function(start, end){
 
-  len = 97
-  PI <- PA <- PD <- rep(NA, len)
+  start = 20 
+  
+  PI <- PA <- PD <- rep(NA, end)
   for (t in start:end){
 
     A<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
@@ -614,262 +630,215 @@ MJ_7Xarrivals <- function(start, end){
   }
   return(PA)
 }
-MJ_2arrivals <- function(start, end){
 
-  len = 97
-  PI <- PA <- PD <- rep(NA, len)
-  for (t in start:end){
-
-    A<- before.long[(t- 1),"Shabeellaha_Dhexe_BeforeRegion"]
-    B<- conflicts.long[(t- 1),"Awdal_Conflict"]
-    C<- fatalities.long[(t- 9),"Bari_Fatalities"]
-    D<- fatalities.long[(t- 9),"Bari_Fatalities"]
-    E<- future.long[(t- 1),"Bakool_FutureRegion"]
-    G<- current.long[(t- 1),"Galgaduud_CurrentRegion"]
-    H<- before.long[(t- 1),"Bari_BeforeRegion"]
-    I<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
-    J<- fatalities.long[(t- 9),"Bari_Fatalities"]
-    K<- future.long[(t- 1),"Bakool_FutureRegion"]
-    L<- current.long[(t- 1),"Galgaduud_CurrentRegion"]
-    M<- before.long[(t- 1),"Shabeellaha_Dhexe_BeforeRegion"]
-    N<- conflicts.long[(t- 1),"Awdal_Conflict"]
-    O<- fatalities.long[(t- 9),"Bari_Fatalities"]
-    P<- future.long[(t- 1),"Gedo_FutureRegion"]
-    Q<- current.long[(t- 1),"Banadir_CurrentRegion"]
-    R<- min(0.152346815708488*B, C,na.rm=TRUE)
-    if ( is.na(D) ){S<- H}
-    else if(D>0){S<- 0.00038013677579467*E*G }
-    else{S<- H }
-    U<- max(sum(384.939466657484 , A*R , S,na.rm=TRUE), 0.160505532453264*I,na.rm=TRUE)
-    V<- tan(0.00038013677579467*K*L)
-    W<- min(0.152346815708488*N, O,na.rm=TRUE)
-    X<- tan(M*W)
-    if(is.infinite(U)){U <- 0 }
-    if(is.infinite(J)){J <- 0 }
-    if(is.infinite(V)){V <- 0 }
-    if(is.infinite(X)){X <- 0 }
-    if(is.infinite(P)){P <- 0 }
-    if(is.infinite(Q)){Q <- 0 }
-    FIN <-sum( U , -J , -V , -X , -4.64742734901024e-5*P*Q,na.rm=TRUE)
-    PA[t] <- FIN
-    #Bay_Incidents
-    PI[t] <- 0
-    #Bay_Departures
-    PD[t] <- 0
-  }
-  return(PA)
-}
-
-
-MJ_9arrivals <- function(start, end){
-
-  len = 97
-  PI <- PA <- PD <- rep(NA, len)
-  for (t in start:end){
-
-    A<- current.long[(t- 1),"Galgaduud_CurrentRegion"]
-    B<- mean(future.long[(t-6):(t- 1),"Bakool_FutureRegion"], na.rm=TRUE)
+MJ_2Xarrivals <- function(start, end){
+  start = 20
+  
+  PI <- PA <- PD <- rep(NA, end)
+  for (t in start:end){ 
+    
+    A<- rain.long[(t- 1),"Sanaag_rain"]
+    B<- fatalities.long[(t- 17),"Bay_Fatalities"]
     C<- conflicts.long[(t- 1),"Awdal_Conflict"]
-    D<- fatalities.long[(t- 1),"Togdheer_Fatalities"]
-    E<- before.long[(t- 1),"Shabeellaha_Dhexe_BeforeRegion"]
-    G<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
-    H<- fatalities.long[(t- 1),"Gedo_Fatalities"]
-    I<- rivers.long[(t- 3),"Juba_Dhexe_BualleStation_Juba_River"]
-    J<- conflicts.long[(t- 1),"Awdal_Conflict"]
-    K<- fatalities.long[(t- 1),"Togdheer_Fatalities"]
-    L<- before.long[(t- 1),"Shabeellaha_Dhexe_BeforeRegion"]
-    M<- fatalities.long[(t- 1),"Bari_Fatalities"]
-    N<- current.long[(t- 1),"Banadir_CurrentRegion"]
-    O<- mean(future.long[(t-10):(t- 1),"Gedo_FutureRegion"], na.rm=TRUE)
-    P<- max(0.000492063306548717*A*B, 0.049922717432803*C*D*E,na.rm=TRUE)
-    Q<- max(424, 0.1641743664885*G,na.rm=TRUE)
-    R<- atan2(0.049922717432803*J*K*L, M)
-    S<- max(Q, H*I*R,na.rm=TRUE)
-    if(is.infinite(P)){P <- 0 }
-    if(is.infinite(S)){S <- 0 }
-    if(is.infinite(N)){N <- 0 }
-    if(is.infinite(O)){O <- 0 }
-    FIN <-sum( P , S , -8.31757418929373e-5*N*O,na.rm=TRUE)
+    D<- before.long[(t- 1),"Shabeellaha_Dhexe_BeforeRegion"]
+    E<- fatalities.long[(t- 11),"Sool_Fatalities"]
+    G<- rain.long[(t- 1),"Sanaag_rain"]
+    H<- rain.long[(t- 10),"Mudug_rain"]
+    I<- median(fatalities.long[(t-8):(t- 1),"Togdheer_Fatalities"], na.rm=TRUE)
+    J<- rain.long[(t- 1),"Gedo_rain"]
+    K<- before.long[(t- 1),"Woqooyi_Galbeed_BeforeRegion"]
+    L<- current.long[(t- 15),"Sanaag_CurrentRegion"]
+    M<- future.long[(t- 1),"Bay_FutureRegion"]
+    N<- max(J, 1.66768716357206*K,na.rm=TRUE)
+    O<- max(sum(A*B , 0.189067008974022*C*D , E^2 , G*H*I , N , -L , -3.55180171284025*M,na.rm=TRUE), 534,na.rm=TRUE)
+    FIN <-O
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
     #Bay_Departures
     PD[t] <- 0
   }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
-LJ_8arrivals <- function(start, end){
-
-  len = 97
-  PI <- PA <- PD <- rep(NA, len)
-  for (t in start:end){
-
+MJ_7arrivals <- function(start, end){
+  start = 20
+  
+  PI <- PA <- PD <- rep(NA, end)
+  for (t in start:end){ 
+    
     A<- conflicts.long[(t- 1),"Awdal_Conflict"]
-    B<- before.long[(t- 11),"Sanaag_BeforeRegion"]
-    C<- fatalities.long[(t- 1),"Sanaag_Fatalities"]
-    D<- rain.long[(t- 11),"Shabeellaha_Dhexe_rain"]
-    E<- median(rain.long[(t-7):(t- 1),"Bari_rain"], na.rm=TRUE)
-    G<- rain.long[(t- 9),"Bakool_rain"]
-    H<- mean(future.long[(t-8):(t- 1),"Galgaduud_FutureRegion"], na.rm=TRUE)
-    I<- future.long[(t- 1),"Togdheer_FutureRegion"]
-    J<- rain.long[(t- 9),"Bakool_rain"]
-    K<- mean(rain.long[(t-10):(t- 1),"Bari_rain"], na.rm=TRUE)
-    L<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
-    M<- conflicts.long[(t- 2),"Jubbada_Dhexe_Conflict"]
-    N<- future.long[(t- 11),"Galgaduud_FutureRegion"]
-    O<- median(current.long[(t-11):(t- 1),"Gedo_CurrentRegion"], na.rm=TRUE)
-    P<- max(I, J*K,na.rm=TRUE)
-    Q<- max(sum(0.606757439691736*L , M*N,na.rm=TRUE), O,na.rm=TRUE)
-    if(is.infinite(A)){A <- 0 }
-    if(is.infinite(B)){B <- 0 }
-    if(is.infinite(C)){C <- 0 }
-    if(is.infinite(D)){D <- 0 }
-    if(is.infinite(E)){E <- 0 }
-    if(is.infinite(G)){G <- 0 }
-    if(is.infinite(H)){H <- 0 }
-    if(is.infinite(P)){P <- 0 }
-    if(is.infinite(Q)){Q <- 0 }
-    FIN <-sum( 1.95263185850796*A*B , C*D*E , G , H , P , Q , -328.786062457441,na.rm=TRUE)
+    B<- before.long[(t- 1),"Shabeellaha_Dhexe_BeforeRegion"]
+    C<- future.long[(t- 1),"Bakool_FutureRegion"]
+    D<- current.long[(t- 1),"Galgaduud_CurrentRegion"]
+    E<- future.long[(t- 1),"Bakool_FutureRegion"]
+    G<- fatalities.long[(t- 9),"Awdal_Fatalities"]
+    H<- median(conflicts.long[(t-6):(t- 1),"Jubbada_Dhexe_Conflict"], na.rm=TRUE)
+    I<- current.long[(t- 7),"Nugaal_CurrentRegion"]
+    J<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
+    K<- future.long[(t- 1),"Bakool_FutureRegion"]
+    L<- future.long[(t- 1),"Gedo_FutureRegion"]
+    M<- future.long[(t- 1),"Mudug_FutureRegion"]
+    N<- current.long[(t- 1),"Galgaduud_CurrentRegion"]
+    O<- max(0.000457589022171376*K, 0.161033534245094,na.rm=TRUE)
+    P<- max(1.4575350401709*I, J*O,na.rm=TRUE)
+    Q<- acosh(N)
+    R<- max(sum(0.161033534245094*A*B , 0.000457589022171376*C*D , E*G*H , P , -L , -M*Q,na.rm=TRUE), 534,na.rm=TRUE)
+    FIN <-R
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
     #Bay_Departures
     PD[t] <- 0
   }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
-LJ_1Xarrivals <- function(start, end){
 
-  len = 97
-  PI <- PA <- PD <- rep(NA, len)
-  for (t in start:end){
 
-    A<- fatalities.long[(t- 1),"Sanaag_Fatalities"]
-    B<- fatalities.long[(t- 1),"Shabeellaha_Dhexe_Fatalities"]
-    C<- rain.long[(t- 1),"Awdal_rain"]
-    D<- conflicts.long[(t- 1),"Bay_Conflict"]
-    E<- fatalities.long[(t- 1),"Bari_Fatalities"]
-    G<- median(rivers.long[(t-4):(t- 1),"Hiiraan_Bulo_Burti_StationShabelle_River"], na.rm=TRUE)
-    H<- current.long[(t- 17),"Nugaal_CurrentRegion"]
-    I<- median(before.long[(t-10):(t- 1),"Gedo_BeforeRegion"], na.rm=TRUE)
-    J<- conflicts.long[(t- 3),"Bay_Conflict"]
-    K<- goats.long[(t- 1),"Hiiraan_goatprice"]
-    L<- current.long[(t- 1),"Awdal_CurrentRegion"]
-    M<- mean(current.long[(t-5):(t- 1),"Hiiraan_CurrentRegion"], na.rm=TRUE)
-    N<- fatalities.long[(t- 1),"Bari_Fatalities"]
-    O<- mean(rain.long[(t-4):(t- 1),"Awdal_rain"], na.rm=TRUE)
-    P<- before.long[(t- 1),"Shabeellaha_Hoose_BeforeRegion"]
-    Q<- current.long[(t- 1),"Awdal_CurrentRegion"]
-    if ( is.na(J) ){R<- M}
-    else if(J>0){R<- 5.03026963301009e-6*K*L }
-    else{R<- M }
+
+LJ_9arrivals <- function(start, end){
+  start = 20
+  
+  PI <- PA <- PD <- rep(NA, end)
+  for (t in start:end){ 
+    
+    A<- future.long[(t- 1),"Togdheer_FutureRegion"]
+    B<- median(current.long[(t-10):(t- 1),"Hiiraan_CurrentRegion"], na.rm=TRUE)
+    C<- mean(current.long[(t-3):(t- 1),"Woqooyi_Galbeed_CurrentRegion"], na.rm=TRUE)
+    D<- fatalities.long[(t- 1),"Sool_Fatalities"]
+    E<- future.long[(t- 1),"Galgaduud_FutureRegion"]
+    G<- before.long[(t- 1),"Banadir_BeforeRegion"]
+    H<- before.long[(t- 1),"Shabeellaha_Dhexe_BeforeRegion"]
+    I<- rain.long[(t- 9),"Bakool_rain"]
+    J<- mean(rain.long[(t-9):(t- 1),"Sool_rain"], na.rm=TRUE)
+    K<- median(conflicts.long[(t-11):(t- 1),"Gedo_Conflict"], na.rm=TRUE)
+    L<- median(before.long[(t-17):(t- 1),"Hiiraan_BeforeRegion"], na.rm=TRUE)
+    M<- median(before.long[(t-14):(t- 1),"Shabeellaha_Dhexe_BeforeRegion"], na.rm=TRUE)
+    N<- max(C,sum( 0.381252890085792*D*E , 6.07165964780916e-5*G*H,na.rm=TRUE),na.rm=TRUE)
+    O<- max(N,sum( I*J , 0.869238135182971*K*L,na.rm=TRUE),na.rm=TRUE)
     if(is.infinite(A)){A <- 0 }
     if(is.infinite(B)){B <- 0 }
-    if(is.infinite(C)){C <- 0 }
-    if(is.infinite(D)){D <- 0 }
-    if(is.infinite(E)){E <- 0 }
-    if(is.infinite(G)){G <- 0 }
-    if(is.infinite(H)){H <- 0 }
-    if(is.infinite(I)){I <- 0 }
-    if(is.infinite(R)){R <- 0 }
-    if(is.infinite(N)){N <- 0 }
     if(is.infinite(O)){O <- 0 }
-    if(is.infinite(P)){P <- 0 }
-    if(is.infinite(Q)){Q <- 0 }
-    FIN <-sum( A*B*C , D*E*G , H , I , R , -N*O , -0.000115842576271141*P*Q,na.rm=TRUE)
+    if(is.infinite(M)){M <- 0 }
+    FIN <-sum( A , B , O , -3.06714050467996*M,na.rm=TRUE)
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
     #Bay_Departures
     PD[t] <- 0
   }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
-LJ_9Xarrivals <- function(start, end){
-
-  len = 97
-  PI <- PA <- PD <- rep(NA, len)
-  for (t in start:end){
-
-    A<- conflicts.long[(t- 3),"Shabeellaha_Hoose_Conflict"]
-    B<- median(fatalities.long[(t-10):(t- 1),"Bay_Fatalities"], na.rm=TRUE)
-    C<- rain.long[(t- 5),"Bay_rain"]
-    D<- fatalities.long[(t- 7),"Togdheer_Fatalities"]
-    E<- before.long[(t- 1),"Shabeellaha_Dhexe_BeforeRegion"]
-    G<- mean(conflicts.long[(t-3):(t- 1),"Gedo_Conflict"], na.rm=TRUE)
-    H<- before.long[(t- 1),"Woqooyi_Galbeed_BeforeRegion"]
-    I<- mean(current.long[(t-3):(t- 1),"Woqooyi_Galbeed_CurrentRegion"], na.rm=TRUE)
-    J<- median(before.long[(t-17):(t- 1),"Hiiraan_BeforeRegion"], na.rm=TRUE)
-    K<- rain.long[(t- 5),"Woqooyi_Galbeed_rain"]
-    L<- mean(fatalities.long[(t-5):(t- 1),"Galguduud_Fatalities"], na.rm=TRUE)
-    M<- rain.long[(t- 6),"Shabeellaha_Dhexe_rain"]
-    N<- mean(fatalities.long[(t-10):(t- 1),"Sool_Fatalities"], na.rm=TRUE)
-    O<- median(fatalities.long[(t-17):(t- 1),"Sool_Fatalities"], na.rm=TRUE)
-    P<- conflicts.long[(t- 3),"Shabeellaha_Hoose_Conflict"]
-    Q<- max(A*B, C*D,na.rm=TRUE)
-    R<- max(I, 9.36406661543063*J,na.rm=TRUE)
-    S<- max(E*G/H, R,na.rm=TRUE)
-    U<- max(sum(K*L , M*N*O,na.rm=TRUE), P,na.rm=TRUE)
-    if(is.infinite(Q)){Q <- 0 }
-    if(is.infinite(S)){S <- 0 }
+LJ_6arrivals <- function(start, end){
+  start = 20
+  
+  PI <- PA <- PD <- rep(NA, end)
+  for (t in start:end){ 
+    
+    A<- current.long[(t- 7),"Nugaal_CurrentRegion"]
+    B<- median(conflicts.long[(t-7):(t- 1),"Togdheer_Conflict"], na.rm=TRUE)
+    C<- median(before.long[(t-17):(t- 1),"Hiiraan_BeforeRegion"], na.rm=TRUE)
+    D<- mean(current.long[(t-4):(t- 1),"Hiiraan_CurrentRegion"], na.rm=TRUE)
+    E<- current.long[(t- 11),"Nugaal_CurrentRegion"]
+    G<- fatalities.long[(t- 1),"Sool_Fatalities"]
+    H<- mean(future.long[(t-4):(t- 1),"Galgaduud_FutureRegion"], na.rm=TRUE)
+    I<- mean(rain.long[(t-12):(t- 1),"Bay_rain"], na.rm=TRUE)
+    J<- median(rain.long[(t-10):(t- 1),"Bay_rain"], na.rm=TRUE)
+    K<- conflicts.long[(t- 14),"Galgaduud_Conflict"]
+    L<- mean(rain.long[(t-3):(t- 1),"Shabeellaha_Dhexe_rain"], na.rm=TRUE)
+    M<- before.long[(t- 1),"Banadir_BeforeRegion"]
+    N<- before.long[(t- 1),"Shabeellaha_Dhexe_BeforeRegion"]
+    O<- mean(current.long[(t-3):(t- 1),"Woqooyi_Galbeed_CurrentRegion"], na.rm=TRUE)
+    P<- log(D)
+    Q<- max(0.330162338655957*G*H, I*J,na.rm=TRUE)
+    R<- max(E, Q,na.rm=TRUE)
+    S<- max(sum(C*P , R , -K*L,na.rm=TRUE), 6.04475718368644e-5*M*N,na.rm=TRUE)
+    U<- max(A*B, S,na.rm=TRUE)
+    V<- max(U, O,na.rm=TRUE)
+    FIN <-V
+    PA[t] <- FIN
+    #Bay_Incidents
+    PI[t] <- 0
+    #Bay_Departures
+    PD[t] <- 0
+  }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  return(PA)
+}
+LJ_6Xarrivals <- function(start, end){
+  start = 20
+  
+  PI <- PA <- PD <- rep(NA, end)
+  for (t in start:end){ 
+    
+    A<- mean(before.long[(t-15):(t- 1),"Nugaal_BeforeRegion"], na.rm=TRUE)
+    B<- median(rain.long[(t-12):(t- 1),"Shabeellaha_Dhexe_rain"], na.rm=TRUE)
+    C<- mean(before.long[(t-15):(t- 1),"Nugaal_BeforeRegion"], na.rm=TRUE)
+    D<- median(rain.long[(t-12):(t- 1),"Shabeellaha_Dhexe_rain"], na.rm=TRUE)
+    E<- water.long[(t- 7),"Togdheer_WaterDrumPrice"]
+    G<- before.long[(t- 8),"Shabeellaha_Dhexe_BeforeRegion"]
+    H<- before.long[(t- 10),"Jubbada_Hoose_BeforeRegion"]
+    I<- mean(future.long[(t-13):(t- 1),"Shabeellaha_Hoose_FutureRegion"], na.rm=TRUE)
+    J<- median(fatalities.long[(t-16):(t- 1),"Bari_Fatalities"], na.rm=TRUE)
+    K<- before.long[(t- 12),"Bay_BeforeRegion"]
+    L<- future.long[(t- 11),"Galgaduud_FutureRegion"]
+    M<- mean(stations.long[(t-4):(t- 1),"Gedo_LuuqStation_Juba_River"], na.rm=TRUE)
+    N<- mean(conflicts.long[(t-3):(t- 1),"Shabeellaha_Dhexe_Conflict"], na.rm=TRUE)
+    O<- before.long[(t- 11),"Banadir_BeforeRegion"]
+    P<- stations.long[(t- 11),"Hiiraan_Belet_WeyneStation_Shabelle_River"]
+    Q<- mean(future.long[(t-10):(t- 1),"Shabeellaha_Hoose_FutureRegion"], na.rm=TRUE)
+    R<- stations.long[(t- 1),"Gedo_BardheereStation_Juba_River"]
+    S<- max(sum(C*D , E , G , H , -I*J,na.rm=TRUE),sum( 1.93497351844963*K , L*M*N , -O*P,na.rm=TRUE),na.rm=TRUE)
+    U<- max(S, Q,na.rm=TRUE)
+    if(is.infinite(A)){A <- 0 }
+    if(is.infinite(B)){B <- 0 }
     if(is.infinite(U)){U <- 0 }
-    FIN <-sum( Q , S , U , -1796.93556600875,na.rm=TRUE)
+    if(is.infinite(R)){R <- 0 }
+    FIN <-sum( A*B , U/R,na.rm=TRUE)
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
     #Bay_Departures
     PD[t] <- 0
   }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
 
-MS_5arrivals <- function(start, end){
-  start = 17
+MS_6arrivals <- function(start, end){
+  start = 20
   
   PI <- PA <- PD <- rep(NA, end)
   for (t in start:end){ 
     
     A<- conflicts.long[(t- 1),"Jubbada_Dhexe_Conflict"]
-    B<- conflicts.long[(t- 1),"Jubbada_Dhexe_Conflict"]
-    C<- fatalities.long[(t- 1),"Woqooyi_Galbeed_Fatalities"]
-    D<- conflicts.long[(t- 1),"Nugaal_Conflict"]
-    E<- before.long[(t- 1),"Bay_BeforeRegion"]
-    G<- future.long[(t- 1),"Galgaduud_FutureRegion"]
-    H<- future.long[(t- 1),"Jubbada_Hoose_FutureRegion"]
-    I<- current.long[(t- 1),"Hiiraan_CurrentRegion"]
-    J<- current.long[(t- 1),"Togdheer_CurrentRegion"]
-    K<- discharge.long[(t- 1),"Juba_River_discharge"]
-    L<- current.long[(t- 1),"Hiiraan_CurrentRegion"]
-    M<- future.long[(t- 1),"Bakool_FutureRegion"]
-    N<- rain.long[(t- 1),"Togdheer_rain"]
-    if(is.infinite(L)){L <- 0 }
-    if(is.infinite(M)){M <- 0 }
-    if(is.infinite(N)){N <- 0 }
-    
-    O<- max(L, 0.0372555495219628*M*N,na.rm=TRUE)
-    
+    B<- fatalities.long[(t- 1),"Woqooyi_Galbeed_Fatalities"]
+    C<- fatalities.long[(t- 1),"Sool_Fatalities"]
+    D<- future.long[(t- 1),"Bakool_FutureRegion"]
+    E<- conflicts.long[(t- 1),"Nugaal_Conflict"]
+    G<- before.long[(t- 1),"Bay_BeforeRegion"]
+    H<- future.long[(t- 1),"Galgaduud_FutureRegion"]
+    I<- future.long[(t- 1),"Jubbada_Hoose_FutureRegion"]
+    J<- current.long[(t- 1),"Hiiraan_CurrentRegion"]
+    K<- current.long[(t- 1),"Togdheer_CurrentRegion"]
+    L<- mean(discharge.long[(t-4):(t- 1),"Juba_River_discharge"], na.rm=TRUE)
+    if(is.infinite(A)){A <- 0 }
     if(is.infinite(B)){B <- 0 }
     if(is.infinite(C)){C <- 0 }
     if(is.infinite(D)){D <- 0 }
     if(is.infinite(E)){E <- 0 }
     if(is.infinite(G)){G <- 0 }
     if(is.infinite(H)){H <- 0 }
-    
     if(is.infinite(I)){I <- 0 }
     if(is.infinite(J)){J <- 0 }
-    
     if(is.infinite(K)){K <- 0 }
-    
-    if(is.infinite(O)){O <- 0 }
-    
-    if ( is.na(A) ){P<- O}
-    
-    else if(A>0){P<-sum( 100.219637895651*B*C , 0.0188842218738547*D*E , 0.00381626615949535*G*H , 5.10322194764338e-5*I*J , K,na.rm=TRUE) }
-    else{P<- O }
-    FIN <-P
+    if(is.infinite(L)){L <- 0 }
+    FIN <-sum( 101.965589475677*A*B , 0.0327623487454269*C*D , 0.018367498732068*E*G , 0.00381260278833393*H*I , 5.09551989524317e-5*J*K , L,na.rm=TRUE)
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
@@ -958,44 +927,30 @@ MS_minus2arrivals <- function(start, end){
   return(PA)
 }
 
-LS_JUN1arrivals <- function(start, end){
+LS_JUN10arrivals <- function(start, end){
   start = 20
   
   PI <- PA <- PD <- rep(NA, end)
   for (t in start:end){ 
     
-    A<- current.long[(t- 1),"Awdal_CurrentRegion"]
-    B<- fatalities.long[(t- 1),"Mudug_Fatalities"]
-    C<- rain.long[(t- 1),"Jubbada_Dhexe_rain"]
-    D<- median(stations.long[(t-6):(t- 1),"Gedo_DollowStation_Juba_River"], na.rm=TRUE)
-    E<- rain.long[(t- 1),"Jubbada_Dhexe_rain"]
-    G<- current.long[(t- 1),"Bay_CurrentRegion"]
-    H<- mean(rain.long[(t-9):(t- 1),"Woqooyi_Galbeed_rain"], na.rm=TRUE)
-    I<- fatalities.long[(t- 1),"Sanaag_Fatalities"]
-    J<- fatalities.long[(t- 1),"Mudug_Fatalities"]
-    K<- before.long[(t- 1),"Bari_BeforeRegion"]
-    L<- current.long[(t- 1),"Awdal_CurrentRegion"]
-    M<- mean(before.long[(t-7):(t- 1),"Hiiraan_BeforeRegion"], na.rm=TRUE)
-    N<- fatalities.long[(t- 1),"Mudug_Fatalities"]
-    O<- rain.long[(t- 1),"Jubbada_Dhexe_rain"]
-    P<- current.long[(t- 1),"Awdal_CurrentRegion"]
-    Q<- current.long[(t- 1),"Awdal_CurrentRegion"]
-    R<- mean(future.long[(t-8):(t- 1),"Bay_FutureRegion"], na.rm=TRUE)
-    S<- discharge.long[(t- 1),"Juba_River_discharge"]
-    U<- acosh(L)
-    if ( is.na(I) ){V<- M}
-    else if(I>0){V<-sum( J*K*U , -9775.44424571598,na.rm=TRUE) }
-    else{V<- M }
-    if ( is.na(E) ){W<- V}
-    else if(E>0){W<- 0.0223771266780618*G*H }
-    else{W<- V }
-    X<- max(B*C,sum( D*W , -N*O,na.rm=TRUE),na.rm=TRUE)
-    Y<- max(A,sum( X , -P,na.rm=TRUE),na.rm=TRUE)
-    if(is.infinite(Y)){Y <- 0 }
-    if(is.infinite(Q)){Q <- 0 }
-    if(is.infinite(R)){R <- 0 }
-    if(is.infinite(S)){S <- 0 }
-    FIN <-sum( 0.957759474618228*Y , Q , R , -S,na.rm=TRUE)
+    A<- fatalities.long[(t- 1),"Jubbada_Dhexe_Fatalities"]
+    B<- rain.long[(t- 1),"Togdheer_rain"]
+    C<- conflicts.long[(t- 10),"Nugaal_Conflict"]
+    D<- future.long[(t- 1),"Hiiraan_FutureRegion"]
+    E<- before.long[(t- 1),"Nugaal_BeforeRegion"]
+    G<- future.long[(t- 12),"Sanaag_FutureRegion"]
+    H<- before.long[(t- 1),"Bay_BeforeRegion"]
+    I<- rain.long[(t- 1),"Woqooyi_Galbeed_rain"]
+    J<- mean(current.long[(t-8):(t- 1),"Nugaal_CurrentRegion"], na.rm=TRUE)
+    K<- future.long[(t- 12),"Sanaag_FutureRegion"]
+    L<- before.long[(t- 12),"Sool_BeforeRegion"]
+    M<- mean(fatalities.long[(t-17):(t- 1),"Shabeellaha_Dhexe_Fatalities"], na.rm=TRUE)
+    N<- current.long[(t- 1),"Sanaag_CurrentRegion"]
+    O<- max(sum(0.281967386533701*D , E*G , 0.0142740689486181*H*I , J , -K,na.rm=TRUE), 0.789348598567604*L*M,na.rm=TRUE)
+    P<- max(A*B*C, O,na.rm=TRUE)
+    if(is.infinite(P)){P <- 0 }
+    if(is.infinite(N)){N <- 0 }
+    FIN <-sum( P , -0.237387364177301*N,na.rm=TRUE)
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
@@ -1005,32 +960,30 @@ LS_JUN1arrivals <- function(start, end){
   write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
-LS_JUN9arrivals <- function(start, end){
+
+LS_SEPT10arrivals <- function(start, end){
   start = 20
   
   PI <- PA <- PD <- rep(NA, end)
   for (t in start:end){ 
     
-    A<- future.long[(t- 11),"Mudug_FutureRegion"]
-    B<- mean(stations.long[(t-14):(t- 1),"Hiiraan_Belet_WeyneStation_Shabelle_River"], na.rm=TRUE)
-    C<- future.long[(t- 1),"Jubbada_Dhexe_FutureRegion"]
-    D<- median(fatalities.long[(t-6):(t- 1),"Sanaag_Fatalities"], na.rm=TRUE)
-    E<- future.long[(t- 1),"Bakool_FutureRegion"]
-    G<- future.long[(t- 1),"Bay_FutureRegion"]
-    H<- current.long[(t- 1),"Awdal_CurrentRegion"]
-    I<- mean(fatalities.long[(t-8):(t- 1),"Shabeellaha_Dhexe_Fatalities"], na.rm=TRUE)
-    J<- rain.long[(t- 1),"Woqooyi_Galbeed_rain"]
-    K<- current.long[(t- 1),"Bay_CurrentRegion"]
-    L<- mean(future.long[(t-8):(t- 1),"Bay_FutureRegion"], na.rm=TRUE)
-    M<- future.long[(t- 1),"Togdheer_FutureRegion"]
-    if ( is.na(I) ){N<- 7997.58601212182}
-    else if(I>0){N<- 0.014034262708128*J*K }
-    else{N<- 7997.58601212182 }
-    O<- max(sum(C*D , 0.00142949134319195*E*G , H , N,na.rm=TRUE), L,na.rm=TRUE)
-    P<- max(A*B, O,na.rm=TRUE)
-    if(is.infinite(P)){P <- 0 }
-    if(is.infinite(M)){M <- 0 }
-    FIN <-sum( 1.08608351962838*P , -4.47137535033928*M,na.rm=TRUE)
+    A<- water.long[(t- 1),"Togdheer_WaterDrumPrice"]
+    B<- mean(before.long[(t-17):(t- 1),"Banadir_BeforeRegion"], na.rm=TRUE)
+    C<- rain.long[(t- 2),"Awdal_rain"]
+    D<- fatalities.long[(t- 1),"Mudug_Fatalities"]
+    E<- before.long[(t- 3),"Bari_BeforeRegion"]
+    G<- mean(conflicts.long[(t-15):(t- 1),"Bari_Conflict"], na.rm=TRUE)
+    H<- conflicts.long[(t- 13),"Banadir_Conflict"]
+    I<- mean(rain.long[(t-4):(t- 1),"Woqooyi_Galbeed_rain"], na.rm=TRUE)
+    J<- before.long[(t- 1),"Bari_BeforeRegion"]
+    K<- fatalities.long[(t- 1),"Mudug_Fatalities"]
+    L<- mean(before.long[(t-9):(t- 1),"Bakool_BeforeRegion"], na.rm=TRUE)
+    M<- stations.long[(t- 5),"Gedo_LuuqStation_Juba_River"]
+    N<- mean(fatalities.long[(t-8):(t- 1),"Hiiraan_Fatalities"], na.rm=TRUE)
+    O<- cos(A)
+    P<- sqrt(K)
+    Q<- max(sum(O*B , C*D , E*G , H*I , J*P , L , -4206.10698936085,na.rm=TRUE), 0.00220924875524871*M^8.68404336686729*N,na.rm=TRUE)
+    FIN <-Q
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
@@ -1096,9 +1049,8 @@ LS_1arrivals <- function(start, end){
 
 HI_6arrivals <- function(start, end){
       start = 20
-      end = 97
-      len = 97
-      PI <- PA <- PD <- rep(NA, len)
+
+      PI <- PA <- PD <- rep(NA, end)
       for (t in start:end){
 
 A<- before.long[(t- 1),"Woqooyi_Galbeed_BeforeRegion"]
@@ -1145,105 +1097,79 @@ FIN <-Z
         write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
         return(PA)
     }
+HI_8arrivals <- function(start, end){
+  start = 20
+  
+  PI <- PA <- PD <- rep(NA, end)
+  for (t in start:end){
+    
+    A<- current.long[(t- 2),"Awdal_CurrentRegion"]
+    B<- current.long[(t- 2),"Awdal_CurrentRegion"]
+    C<- conflicts.long[(t- 1),"Shabeellaha_Dhexe_Conflict"]
+    D<- current.long[(t- 8),"Sool_CurrentRegion"]
+    E<- before.long[(t- 3),"Sool_BeforeRegion"]
+    G<- mean(rain.long[(t-6):(t- 1),"Togdheer_rain"], na.rm=TRUE)
+    H<- mean(rain.long[(t-6):(t- 1),"Togdheer_rain"], na.rm=TRUE)
+    I<- future.long[(t- 1),"Bari_FutureRegion"]
+    J<- conflicts.long[(t- 1),"Awdal_Conflict"]
+    K<- before.long[(t- 7),"Bay_BeforeRegion"]
+    L<- median(future.long[(t-3):(t- 1),"Shabeellaha_Hoose_FutureRegion"], na.rm=TRUE)
+    M<- before.long[(t- 1),"Bay_BeforeRegion"]
+    N<- before.long[(t- 1),"Woqooyi_Galbeed_BeforeRegion"]
+    O<- log(G)
+    P<- max(2.68821438163323*A,sum( 2.68821438163323*B , C*D , E*O , H*I*J , K , L , -M*N,na.rm=TRUE),na.rm=TRUE)
+    Q<- max(5955.19443819961, P,na.rm=TRUE)
+    if(is.infinite(Q)){Q <- 0 }
+    FIN <-sum( 1.02200933194717*Q , -5490.62143160097,na.rm=TRUE)
+    PA[t] <- FIN
+    #Bay_Incidents
+    PI[t] <- 0
+    #Bay_Departures
+    PD[t] <- 0
+  }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  return(PA)
+}
 
-HI_1arrivals <- function(start, end){
-          start = 20
-          end = 97
-          len = 97
-          PI <- PA <- PD <- rep(NA, len)
-          for (t in start:end){
-
-    A<- future.long[(t- 5),"Nugaal_FutureRegion"]
-    B<- future.long[(t- 1),"Nugaal_FutureRegion"]
-    C<- fatalities.long[(t- 1),"Togdheer_Fatalities"]
-    D<- future.long[(t- 1),"Bakool_FutureRegion"]
-    E<- rain.long[(t- 1),"Bari_rain"]
-    G<- current.long[(t- 1),"Jubbada_Dhexe_CurrentRegion"]
-    H<- mean(current.long[(t-5):(t- 1),"Jubbada_Dhexe_CurrentRegion"], na.rm=TRUE)
-    I<- fatalities.long[(t- 17),"Hiiraan_Fatalities"]
-    J<- conflicts.long[(t- 14),"Shabeellaha_Dhexe_Conflict"]
-    K<- median(rain.long[(t-3):(t- 1),"Bari_rain"], na.rm=TRUE)
-    L<- fatalities.long[(t- 2),"Nugaal_Fatalities"]
-    M<- median(stations.long[(t-7):(t- 1),"Juba_Dhexe_BualleStation_Juba_River"], na.rm=TRUE)
-    N<- max(sum(1.90007806064601 , A,na.rm=TRUE),sum( 1.90007806064601*B , 0.000216542213423974*C*D*E*G , -H,na.rm=TRUE),na.rm=TRUE)
-    if ( is.na(I) || is.na( J)){O<-0}
-    else if(I> J){O<-1 }
-    else{O<-0 }
-    if ( is.na(K) ){P<- 5440*L}
-    else if(K>0){P<- 595.642855849904 }
-    else{P<- 5440*L }
-    if ( is.na(O) ){Q<- 6.11422397433814^M}
-    else if(O>0){Q<- P }
-    else{Q<- 6.11422397433814^M }
-    R<- max(N, Q,na.rm=TRUE)
-    FIN <-R
-        PA[t] <- FIN
-            #Bay_Incidents
-            PI[t] <- 0
-            #Bay_Departures
-            PD[t] <- 0
-            }
-            write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
-            return(PA)
-        }
-
-HI_JUN10arrivals <- function(start, end){
-              start = 20
-              end = 97
-              len = 97
-              PI <- PA <- PD <- rep(NA, len)
-              for (t in start:end){
-
-        A<- future.long[(t- 1),"Nugaal_FutureRegion"]
-        B<- fatalities.long[(t- 1),"Shabeellaha_Dhexe_Fatalities"]
-        C<- future.long[(t- 1),"Bakool_FutureRegion"]
-        D<- mean(before.long[(t-11):(t- 1),"Hiiraan_BeforeRegion"], na.rm=TRUE)
-        E<- conflicts.long[(t- 1),"Hiiraan_Conflict"]
-        G<- future.long[(t- 1),"Mudug_FutureRegion"]
-        H<- conflicts.long[(t- 1),"Hiiraan_Conflict"]
-        I<- fatalities.long[(t- 1),"Shabeellaha_Dhexe_Fatalities"]
-        J<- future.long[(t- 1),"Bakool_FutureRegion"]
-        K<- future.long[(t- 5),"Nugaal_FutureRegion"]
-        L<- fatalities.long[(t- 1),"Shabeellaha_Dhexe_Fatalities"]
-        M<- future.long[(t- 1),"Bakool_FutureRegion"]
-        N<- discharge.long[(t- 1),"Juba_River_discharge"]
-        O<- mean(before.long[(t-11):(t- 1),"Hiiraan_BeforeRegion"], na.rm=TRUE)
-        P<- conflicts.long[(t- 1),"Hiiraan_Conflict"]
-        Q<- future.long[(t- 1),"Mudug_FutureRegion"]
-        R<- conflicts.long[(t- 1),"Hiiraan_Conflict"]
-        S<- fatalities.long[(t- 1),"Shabeellaha_Dhexe_Fatalities"]
-        U<- future.long[(t- 1),"Bakool_FutureRegion"]
-        V<- future.long[(t- 5),"Nugaal_FutureRegion"]
-        if ( is.na(E) || is.na( G)){W<-0}
-        else if(E== G){W<-1 }
-        else{W<-0 }
-        X<- tan(sum(0.7620784819751*I*J , -26128.4769803165,na.rm=TRUE))
-        Y<- max(sum(0.7620784819751*B*C , -26128.4769803165,na.rm=TRUE),sum( D*W , H*X , K,na.rm=TRUE),na.rm=TRUE)
-        Z<- max(58.6894748131062, Y,na.rm=TRUE)
-        AA<- max(1.95797824561618*A,sum( 677 , Z,na.rm=TRUE),na.rm=TRUE)
-        BB<- tan(N)
-        if ( is.na(P) || is.na( Q)){CC<-0}
-        else if(P== Q){CC<-1 }
-        else{CC<-0 }
-        DD<- tan(sum(0.7620784819751*S*U , -26128.4769803165,na.rm=TRUE))
-        EE<- exp(sum(O*CC , R*DD , V,na.rm=TRUE))
-        GF<- max(AA,sum( 0.7620784819751*L*M*BB , -EE,na.rm=TRUE),na.rm=TRUE)
-        FIN <-GF
-            PA[t] <- FIN
-                #Bay_Incidents
-                PI[t] <- 0
-                #Bay_Departures
-                PD[t] <- 0
-                }
-                write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
-                return(PA)
+HI_JUN2arrivals <- function(start, end){
+  start = 20
+  
+  PI <- PA <- PD <- rep(NA, end)
+  for (t in start:end){
+    
+    A<- mean(future.long[(t-5):(t- 1),"Togdheer_FutureRegion"], na.rm=TRUE)
+    B<- before.long[(t- 15),"Galgaduud_BeforeRegion"]
+    C<- before.long[(t- 7),"Galgaduud_BeforeRegion"]
+    D<- mean(before.long[(t-10):(t- 1),"Galgaduud_BeforeRegion"], na.rm=TRUE)
+    E<- future.long[(t- 1),"Nugaal_FutureRegion"]
+    G<- before.long[(t- 7),"Sanaag_BeforeRegion"]
+    H<- rain.long[(t- 11),"Togdheer_rain"]
+    I<- conflicts.long[(t- 11),"Hiiraan_Conflict"]
+    J<- before.long[(t- 12),"Sanaag_BeforeRegion"]
+    K<- mean(stations.long[(t-5):(t- 1),"Gedo_LuuqStation_Juba_River"], na.rm=TRUE)
+    L<- before.long[(t- 6),"Sanaag_BeforeRegion"]
+    M<- sin(C)
+    N<- max(sum(2.4888475403852*E , G*H,na.rm=TRUE), I*J*K,na.rm=TRUE)
+    O<- max(sum(1.39992189518051*B*M , -D,na.rm=TRUE),sum( N , -7366.50150925209,na.rm=TRUE),na.rm=TRUE)
+    P<- max(A, O,na.rm=TRUE)
+    Q<- max(639, P,na.rm=TRUE)
+    if(is.infinite(Q)){Q <- 0 }
+    if(is.infinite(L)){L <- 0 }
+    FIN <-sum( 1.17782782750182*Q , -L,na.rm=TRUE)
+    PA[t] <- FIN
+    #Bay_Incidents
+    PI[t] <- 0
+    #Bay_Departures
+    PD[t] <- 0
+  }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  return(PA)
 }
 
 GA_2arrivals <- function(start, end){
   start = 20
-  end = 97
-  len = 97
-  PI <- PA <- PD <- rep(NA, len)
+
+  PI <- PA <- PD <- rep(NA, end)
   for (t in start:end){ 
     
     A<- future.long[(t- 12),"Bay_FutureRegion"]
@@ -1277,9 +1203,7 @@ GA_2arrivals <- function(start, end){
 
 GA_4arrivals <- function(start, end){
   start = 20
-  end = 97
-  len = 97
-  PI <- PA <- PD <- rep(NA, len)
+  PI <- PA <- PD <- rep(NA, end)
   for (t in start:end){ 
     
     A<- before.long[(t- 1),"Sool_BeforeRegion"]
@@ -1312,32 +1236,35 @@ GA_4arrivals <- function(start, end){
   return(PA)
 }
 
-GA_10arrivals <- function(start, end){
+GA_JUN3arrivals <- function(start, end){
   start = 20
-  end = 97
-  len = 97
-  PI <- PA <- PD <- rep(NA, len)
+  
+  PI <- PA <- PD <- rep(NA, end)
   for (t in start:end){ 
     
-    A<- future.long[(t- 4),"Shabeallaha_Dhexe_FutureRegion"]
-    B<- fatalities.long[(t- 1),"Mudug_Fatalities"]
-    C<- fatalities.long[(t- 1),"Jubbada_Dhexe_Fatalities"]
-    D<- fatalities.long[(t- 1),"Mudug_Fatalities"]
-    E<- median(rain.long[(t-11):(t- 1),"Hiiraan_rain"], na.rm=TRUE)
+    A<- future.long[(t- 12),"Togdheer_FutureRegion"]
+    B<- before.long[(t- 12),"Galgaduud_BeforeRegion"]
+    C<- before.long[(t- 9),"Galgaduud_BeforeRegion"]
+    D<- future.long[(t- 12),"Togdheer_FutureRegion"]
+    E<- before.long[(t- 1),"Sool_BeforeRegion"]
     G<- before.long[(t- 1),"Sool_BeforeRegion"]
-    H<- current.long[(t- 1),"Gedo_CurrentRegion"]
-    I<- before.long[(t- 1),"Sool_BeforeRegion"]
-    J<- current.long[(t- 1),"Gedo_CurrentRegion"]
-    K<- median(rain.long[(t-11):(t- 1),"Hiiraan_rain"], na.rm=TRUE)
-    L<- current.long[(t- 1),"Sool_CurrentRegion"]
-    M<- max(A, 6709,na.rm=TRUE)
-    N<- max(0.000188665280698418*G*H,sum( 422.388236578383 , 6.57392657327954e-8*I^2*J*K,na.rm=TRUE),na.rm=TRUE)
-    O<- max(C*D*E, N,na.rm=TRUE)
-    if(is.infinite(M)){M <- 0 }
-    if(is.infinite(B)){B <- 0 }
-    if(is.infinite(O)){O <- 0 }
-    if(is.infinite(L)){L <- 0 }
-    FIN <-sum( 1.18811344775081*M , B , O , -6786.82897230302 , -0.277512813039466*L,na.rm=TRUE)
+    H<- future.long[(t- 17),"Galgaduud_FutureRegion"]
+    I<- median(future.long[(t-3):(t- 1),"Bari_FutureRegion"], na.rm=TRUE)
+    J<- before.long[(t- 1),"Sanaag_BeforeRegion"]
+    K<- future.long[(t- 12),"Bay_FutureRegion"]
+    L<- future.long[(t- 12),"Togdheer_FutureRegion"]
+    M<- before.long[(t- 1),"Sanaag_BeforeRegion"]
+    N<- future.long[(t- 12),"Togdheer_FutureRegion"]
+    O<- before.long[(t- 1),"Sool_BeforeRegion"]
+    P<- before.long[(t- 1),"Sanaag_BeforeRegion"]
+    Q<- sin(sum(15.8395664737304*D , E,na.rm=TRUE))
+    R<- atan2(L, M)
+    S<- sin(sum(15.8395664737304*N , O,na.rm=TRUE))
+    U<- max(sum(1476.90041915523 , 1.70233005249552*J,na.rm=TRUE), K*R*S,na.rm=TRUE)
+    V<- max(sum(15.8395664737304*A , 0.176158485141869*B , C*Q , G , H , I , -15.8395664737304,na.rm=TRUE), U,na.rm=TRUE)
+    if(is.infinite(V)){V <- 0 }
+    if(is.infinite(P)){P <- 0 }
+    FIN <-sum( V , -1.93797053396671*P,na.rm=TRUE)
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
@@ -1348,42 +1275,11 @@ GA_10arrivals <- function(start, end){
   return(PA)
 }
 
-MU_8arrivals <- function(start, end){
-  start = 20
-  end = 97
-  len = 97
-  PI <- PA <- PD <- rep(NA, len)
-  for (t in start:end){ 
-    
-    A<- future.long[(t- 1),"Mudug_FutureRegion"]
-    B<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
-    C<- before.long[(t- 1),"Mudug_BeforeRegion"]
-    D<- before.long[(t- 1),"Nugaal_BeforeRegion"]
-    E<- before.long[(t- 1),"Mudug_BeforeRegion"]
-    G<- fatalities.long[(t- 1),"Togdheer_Fatalities"]
-    H<- before.long[(t- 1),"Sool_BeforeRegion"]
-    I<- median(goats.long[(t-7):(t- 1),"Jubbada_Hoose_goatprice"], na.rm=TRUE)
-    J<- before.long[(t- 1),"Nugaal_BeforeRegion"]
-    K<- future.long[(t- 1),"Mudug_FutureRegion"]
-    L<- max(0.00261480818215121*A*B, 0.00192570076831578*C*D,na.rm=TRUE)
-    M<- max(sum(1308.09744269207 , 0.0710002343237065*E,na.rm=TRUE), 0.133365272374889*G*H,na.rm=TRUE)
-    N<- max(sum(L , M , -0.00121468663844687*I , -0.00137951749630371*J*K,na.rm=TRUE), 105.263897378436,na.rm=TRUE)
-    FIN <-N
-    PA[t] <- FIN
-    #Bay_Incidents
-    PI[t] <- 0
-    #Bay_Departures
-    PD[t] <- 0
-  }
-  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
-  return(PA)
-}
 
 MU_4arrivals <- function(start, end){
   start = 20
-  end = 97
-  len = 97
-  PI <- PA <- PD <- rep(NA, len)
+
+  PI <- PA <- PD <- rep(NA, end)
   for (t in start:end){ 
     
     A<- fatalities.long[(t- 9),"Banaadir_Fatalities"]
@@ -1415,12 +1311,41 @@ MU_4arrivals <- function(start, end){
   write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
-
+MU_JUN2arrivals <- function(start, end){
+  start = 20
+  PI <- PA <- PD <- rep(NA,end)
+  for (t in start:end){ 
+    
+    A<- median(current.long[(t-8):(t- 1),"Sool_CurrentRegion"], na.rm=TRUE)
+    B<- future.long[(t- 1),"Mudug_FutureRegion"]
+    C<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    D<- conflicts.long[(t- 1),"Mudug_Conflict"]
+    E<- fatalities.long[(t- 4),"Banaadir_Fatalities"]
+    G<- mean(conflicts.long[(t-9):(t- 1),"Togdheer_Conflict"], na.rm=TRUE)
+    H<- before.long[(t- 1),"Nugaal_BeforeRegion"]
+    I<- before.long[(t- 1),"Mudug_BeforeRegion"]
+    J<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
+    K<- future.long[(t- 1),"Togdheer_FutureRegion"]
+    L<- future.long[(t- 2),"Shabeallaha_Dhexe_FutureRegion"]
+    M<- future.long[(t- 1),"Nugaal_FutureRegion"]
+    N<- max(I, J,na.rm=TRUE)
+    O<- max(A,sum( 1.06003887447658*B , 0.128078633743735*C , 1.3155059188983^D , E*G , 0.00160755003879662*H*N , -K , -L,na.rm=TRUE),na.rm=TRUE)
+    if(is.infinite(O)){O <- 0 }
+    if(is.infinite(M)){M <- 0 }
+    FIN <-sum( O , -3.49523822022665*M,na.rm=TRUE)
+    PA[t] <- FIN
+    #Bay_Incidents
+    PI[t] <- 0
+    #Bay_Departures
+    PD[t] <- 0
+  }
+  write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
+  return(PA)
+}
 MU_JUN10arrivals <- function(start, end){
   start = 20
-  end = 97
-  len = 97
-  PI <- PA <- PD <- rep(NA, len)
+
+  PI <- PA <- PD <- rep(NA, end)
   for (t in start:end){ 
     
     A<- stations.long[(t- 5),"Gedo_DollowStation_Juba_River"]
@@ -1704,9 +1629,9 @@ shinyServer(function(input, output, session) {
       #BAY_A1
       #BAY_12
       #BAY_13
-      PA <- BAY_A1arrivals(fmonths_start, fmonths_end)
+      PA <- BAY_1arrivals(fmonths_start, fmonths_end)
       PI <- PA[fmonths_start:fmonths_end]
-      PB <- BAY_12arrivals(fmonths_start, fmonths_end)
+      PB <- BAY_A4arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
       PC <- BAY_13arrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
@@ -1734,7 +1659,7 @@ shinyServer(function(input, output, session) {
       PI <- PA[fmonths_start:fmonths_end]
       PB <- GE_9arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
-      PC <- GE_10arrivals(fmonths_start, fmonths_end)
+      PC <- GE_8arrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
       reg_arr <- paste("Gedo","CurrentRegion",sep="_")
 
@@ -1752,22 +1677,22 @@ shinyServer(function(input, output, session) {
       A <- current.long[ fmonths_start:fmonths_end, reg_arr ]
     }
     else if(region == "Middle Juba"){
-      PA <- MJ_7Xarrivals(fmonths_start, fmonths_end)
+      PA <- MJ_2Xarrivals(fmonths_start, fmonths_end)
       PI <- PA[fmonths_start:fmonths_end]
-      PB <- MJ_2arrivals(fmonths_start, fmonths_end)
+      PB <- MJ_7Xarrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
-      PC <- MJ_9arrivals(fmonths_start, fmonths_end)
+      PC <- MJ_7arrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
       reg_arr <- paste("Jubbada_Dhexe","CurrentRegion",sep="_")
 
       A <- current.long[ fmonths_start:fmonths_end, reg_arr ]
     }
     else if(region == "Lower Juba"){
-      PA <- LJ_8arrivals(fmonths_start, fmonths_end)
+      PA <- LJ_9arrivals(fmonths_start, fmonths_end)
       PI <- PA[fmonths_start:fmonths_end]
-      PB <- LJ_1Xarrivals(fmonths_start, fmonths_end)
+      PB <- LJ_6arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
-      PC <- LJ_9Xarrivals(fmonths_start, fmonths_end)
+      PC <- LJ_6Xarrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
       reg_arr <- paste("Jubbada_Hoose","CurrentRegion",sep="_")
 
@@ -1779,7 +1704,7 @@ shinyServer(function(input, output, session) {
       #MS_9
       #MS_minus2
       
-      PA <- MS_5arrivals(fmonths_start, fmonths_end)
+      PA <- MS_6arrivals(fmonths_start, fmonths_end)
       PI <- PA[fmonths_start:fmonths_end]
       PB <- MS_9arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
@@ -1791,9 +1716,9 @@ shinyServer(function(input, output, session) {
 
     }
     else if(region == "Lower Shabelle"){
-      PA <- LS_JUN1arrivals(fmonths_start, fmonths_end)
+      PA <- LS_JUN10arrivals(fmonths_start, fmonths_end)
       PI <- PA[fmonths_start:fmonths_end]
-      PB <- LS_JUN9arrivals(fmonths_start, fmonths_end)
+      PB <- LS_SEPT10arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
       PC <- LS_1arrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
@@ -1802,11 +1727,11 @@ shinyServer(function(input, output, session) {
       A <- current.long[ fmonths_start:fmonths_end, reg_arr ]
     }
     else if(region == "Bakool"){
-      PA <- BK_JUN6arrivals(fmonths_start, fmonths_end)
+      PA <- BK_10arrivals(fmonths_start, fmonths_end)
       PI <- PA[fmonths_start:fmonths_end]
       PB <- BK_4arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
-      PC <- BK_10arrivals(fmonths_start, fmonths_end)
+      PC <- BK_JUN6arrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
       reg_arr <- paste("Bakool","CurrentRegion",sep="_")
 
@@ -1815,9 +1740,9 @@ shinyServer(function(input, output, session) {
     else if(region == "Hiiraan"){
       PA <- HI_6arrivals(fmonths_start, fmonths_end)
       PI <- PA[fmonths_start:fmonths_end]
-      PB <- HI_1arrivals(fmonths_start, fmonths_end)
+      PB <- HI_8arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
-      PC <- HI_JUN10arrivals(fmonths_start, fmonths_end)
+      PC <- HI_JUN2arrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
       reg_arr <- paste("Hiiraan","CurrentRegion",sep="_")
 
@@ -1828,7 +1753,7 @@ shinyServer(function(input, output, session) {
       PI <- PA[fmonths_start:fmonths_end]
       PB <- GA_4arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
-      PC <- GA_10arrivals(fmonths_start, fmonths_end)
+      PC <- GA_JUN3arrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
       reg_arr <- paste("Galgaduud","CurrentRegion",sep="_")
       
@@ -1836,9 +1761,9 @@ shinyServer(function(input, output, session) {
     }
     
     else if(region == "Mudug"){
-      PA <- MU_8arrivals(fmonths_start, fmonths_end)
+      PA <- MU_4arrivals(fmonths_start, fmonths_end)
       PI <- PA[fmonths_start:fmonths_end]
-      PB <- MU_4arrivals(fmonths_start, fmonths_end)
+      PB <- MU_JUN2arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
       PC <- MU_JUN10arrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
