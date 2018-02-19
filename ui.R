@@ -68,7 +68,8 @@ shinyUI(
       # Create a spot for the barplot
       mainPanel(
         #showOutput("graph1",lib="morris"),
-        showOutput("graph1",lib="highcharts")
+        showOutput("graph1",lib="highcharts"),
+        p("Click on the arrivals/algorithm name, to select or unselect the data on the graph",align="center")
       )
 
     )

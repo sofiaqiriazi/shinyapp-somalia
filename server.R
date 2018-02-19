@@ -1948,7 +1948,7 @@ output$graph1 <- renderChart2({
   options(scipen = 13)
   dat <- transform(df, Date2 = as.numeric(as.POSIXct(df$Date))*1000)
 
-  h1 <- hPlot(Displaced_People ~ Date2, data = dat,
+  h1 <- hPlot(Displaced_People ~ Date2, data = dat, 
               group = 'Indicator',
               radius=4
   )
