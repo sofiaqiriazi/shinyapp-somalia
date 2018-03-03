@@ -1885,7 +1885,7 @@ output$graph1 <- renderPlotly({
 
   # don't switch to scientific notation, since we want date to be
   # represented in milliseconds
-  p <- plot_ly(data, x = ~Date, y = ~Displaced_People, linetype = ~Indicator, type = 'scatter', mode = 'lines+markers')
+  p <- plot_ly(df, x = ~Date, y = ~Displaced_People, linetype = ~Indicator, type = 'scatter', mode = 'lines+markers')
     
  })
 
@@ -2002,7 +2002,7 @@ output$graph1 <- renderPlotly({
 
    # don't switch to scientific notation, since we want date to be
    # represented in milliseconds
-   p <- plot_ly(data, x = ~Date, y = ~Displaced_People, linetype = ~Indicator, type = 'scatter', mode = 'lines+markers')
+   p <- plot_ly(df, x = ~Date, y = ~Displaced_People, linetype = ~Indicator, type = 'scatter', mode = 'lines+markers')
    
   })
 #Downloadable csv of selected dataset ----
