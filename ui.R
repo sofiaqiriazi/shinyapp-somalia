@@ -75,9 +75,7 @@ shinyUI(
       tabPanel("IDPs", fluid = TRUE,
                sidebarLayout(
                  sidebarPanel(
-                  radioButtons("camp", "Choose camp", list_camps, selected = NULL, inline = FALSE),
-                  downloadButton("downloadData", "Generate report"),
-                  downloadButton("downloadCsv", "Generate csv")
+                  radioButtons("camp", "Choose camp", list_camps, selected = NULL, inline = FALSE)
                   ),
                  mainPanel(
                   showOutput("graph2",lib="highcharts"),
