@@ -30,7 +30,8 @@ list_regs <- rep(NA,18)
 # }
 
 list_regs <- c("Bay","Bakool","Banadir","Gedo", "Middle Juba", "Lower Juba",
-               "Middle Shabelle", "Lower Shabelle", "Hiiraan", "Galgaduud", "Mudug","Nugaal", "Bari")
+               "Middle Shabelle", "Lower Shabelle", "Hiiraan", "Galgaduud", 
+               "Mudug","Nugaal", "Bari", "Sanaag", "Sool", "Togdheer")
 
 list_camps <- c("Dollo Ado")
 
