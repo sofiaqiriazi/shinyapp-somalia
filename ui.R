@@ -34,7 +34,7 @@ list_regs <- c("Bay","Bakool","Banadir","Gedo", "Middle Juba", "Lower Juba", "Mi
 
 shinyUI(
   # Use a fluid Bootstrap layout
-  fixedPage(
+  fluidPage(
     tags$head(
       tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
       tags$script(src="main.js")
