@@ -1,32 +1,35 @@
-h2
-{
-    color:#000E4A;
+h2 {
+    color: #000E4A;
 }
 
-p 
-{
-    font-size:18px;
-    font-weight:400;
-    color:#666;
-    line-height:24px;
-    margin-bottom:30px;
+p {
+    font-size: 18px;
+    font-weight: 400;
+    color: #666;
+    line-height: 24px;
+    margin-bottom: 30px;
 }
 
+.col-sm-8 p 
+{
+    font-size:16px;
+    margin-top:5px;
+}
 
 .shiny-server-account {
     visibility: hidden
 }
 
-#datatable{
-  font-size:16px;
-  background-color:#3f464b;
-  color:white;
+#datatable {
+    font-size: 16px;
+    background-color: #3f464b;
+    color: white;
 }
 
 .well {
     background: #fff;
     border: none;
-    box-shadow: 1px 5px 20px rgba(0, 0, 0, 0.18);
+    box-shadow: none;
 }
 
 .irs-line {
@@ -139,7 +142,31 @@ p
     border-radius: 2px;
 }
 
-.rChart
-{
-    width:100% !important;
+.rChart {
+    width: 100% !important;
+}
+
+
+/* tabs */
+
+.tab-content {
+    box-shadow: 1px 15px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 3px 3px;
+}
+
+.nav-tabs>li {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.nav-tabs>li a {
+    color: #666;
+    font-weight: 400
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    color: #000d49;
+    font-weight: 600;
 }
