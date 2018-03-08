@@ -1898,63 +1898,35 @@ TO_JUN5arrivals <- function(start, end){
   write.csv(as.data.frame(PA[1:length(PA)]), file ="results.csv",row.names = FALSE)
   return(PA)
 }
-TO_8arrivals <- function(start, end){
+TO_9arrivals <- function(start, end){
   start = 20
   PI <- PA <- PD <- rep(NA, end)
   for (t in start:end){
     
     A<- before.long[(t- 1),"Bari_BeforeRegion"]
-    B<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
-    C<- current.long[(t- 1),"Bay_CurrentRegion"]
-    D<- future.long[(t- 1),"Sool_FutureRegion"]
-    E<- current.long[(t- 1),"Bay_CurrentRegion"]
-    G<- current.long[(t- 1),"Bay_CurrentRegion"]
-    H<- before.long[(t- 1),"Sool_BeforeRegion"]
+    B<- median(before.long[(t-17):(t- 1),"Sool_BeforeRegion"], na.rm=TRUE)
+    C<- rain.long[(t- 9),"Awdal_rain"]
+    D<- tail(movavg(before.long[(t-6):(t- 1),"Bay_BeforeRegion"],5,type="w"),1)
+    E<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
+    G<- future.long[(t- 1),"Sool_FutureRegion"]
+    H<- current.long[(t- 1),"Bay_CurrentRegion"]
     I<- fatalities.long[(t- 1),"Mudug_Fatalities"]
-    J<- before.long[(t- 1),"Sool_BeforeRegion"]
-    K<- fatalities.long[(t- 1),"Mudug_Fatalities"]
+    J<- tail(movavg(before.long[(t-3):(t- 1),"Sool_BeforeRegion"], 2,type="m"),1)
+    K<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
     L<- before.long[(t- 1),"Bari_BeforeRegion"]
-    M<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
-    N<- before.long[(t- 1),"Bari_BeforeRegion"]
-    O<- before.long[(t- 1),"Bari_BeforeRegion"]
-    P<- current.long[(t- 1),"Woqooyi_Galbeed_CurrentRegion"]
-    Q<- current.long[(t- 1),"Bay_CurrentRegion"]
-    R<- future.long[(t- 1),"Sool_FutureRegion"]
-    S<- current.long[(t- 1),"Bay_CurrentRegion"]
-    U<- current.long[(t- 1),"Bay_CurrentRegion"]
-    V<- (0.00582484547927256*A*B)
-    if ( is.na(C) || is.na( 10087.6054175655)){W<-0}
-    else if(C>= 10087.6054175655){W<-1 }
-    else{W<-0 }
-    X<- (0.000416347053227405*D*E)
-    if ( is.na(G) || is.na( 10087.6054175655)){Y<-0}
-    else if(G>= 10087.6054175655){Y<-1 }
-    else{Y<-0 }
-    Z<- max(92, 0.0116455014303189*H*I,na.rm=TRUE)
-    AA<- tan(0.0116455014303189*J*K)
-    BB<- 0.00582484547927256*L*M%% 10087.6054175655
-    CC<- tan(BB)
-    DD<- (0.00582484547927256*O*P)
-    if ( is.na(Q) || is.na( 10087.6054175655)){EE<-0}
-    else if(Q>= 10087.6054175655){EE<-1 }
-    else{EE<-0 }
-    GF<- (0.000416347053227405*R*S)
-    if ( is.na(U) || is.na( 10087.6054175655)){HG<-0}
-    else if(U>= 10087.6054175655){HG<-1 }
-    else{HG<-0 }
-    IH<- 2.15535802009812*N%%sum( DD^EE,HG,na.rm=TRUE)
-    if(is.infinite(V)){V <- 0 }
-    if(is.infinite(W)){W <- 0 }
-    if(is.infinite(X)){X <- 0 }
-    if(is.infinite(Y)){Y <- 0 }
-    if(is.infinite(Z)){Z <- 0 }
-    if(is.infinite(A)){A <- 0 }
-    if(is.infinite(A)){A <- 0 }
-    if(is.infinite(C)){C <- 0 }
-    if(is.infinite(C)){C <- 0 }
-    if(is.infinite(I)){I <- 0 }
-    if(is.infinite(H)){H <- 0 }
-    FIN <-sum( V^W , X^Y , Z , -AA , -CC , -IH,na.rm=TRUE)
+    M<- future.long[(t- 1),"Sool_FutureRegion"]
+    N<- tail(movavg(future.long[(t-5):(t- 1),"Shabeellaha_Hoose_FutureRegion"], 4,type="m"),1)
+    O<- rain.long[(t- 14),"Banaadir_rain"]
+    P<- tail(movavg(conflicts.long[(t-7):(t- 1),"Jubbada_Hoose_Conflict"],6,type="w"),1)
+    Q<- before.long[(t- 1),"Bari_BeforeRegion"]
+    R<- min(D,sum( 0.005468954332049*E , 0.000323610742427131*G*H , 0.0131843388167927*I*J , 0.005468954332049*K*L , M , -N,na.rm=TRUE),na.rm=TRUE)
+    if ( is.na(C) ){S<- O*P}
+    else if(C>0){S<- R }
+    else{S<- O*P }
+    U<- max(sum(A , B,na.rm=TRUE), S,na.rm=TRUE)
+    if(is.infinite(U)){U <- 0 }
+    if(is.infinite(Q)){Q <- 0 }
+    FIN <-sum( U , -Q,na.rm=TRUE)
     PA[t] <- FIN
     #Bay_Incidents
     PI[t] <- 0
@@ -2168,7 +2140,7 @@ shinyServer(function(input, output, session) {
       PI <- PA[fmonths_start:fmonths_end]
       PB <- TO_JUN5arrivals(fmonths_start, fmonths_end)
       PJ <- PB[fmonths_start:fmonths_end]
-      PC <- TO_8arrivals(fmonths_start, fmonths_end)
+      PC <- TO_9arrivals(fmonths_start, fmonths_end)
       PK <- PC[fmonths_start:fmonths_end]
       reg_arr <- paste("Togdheer","CurrentRegion",sep="_")
       
