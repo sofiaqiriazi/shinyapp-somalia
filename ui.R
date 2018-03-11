@@ -37,7 +37,7 @@ list_camps <- c("Dollo Ado")
 
 shinyUI(
   # Use a fluid Bootstrap layout
-  fluidPage(
+  fixedPage(
     tags$head(
       tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
       tags$script(src="main.js")
