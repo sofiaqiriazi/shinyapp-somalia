@@ -1,13 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,900');
+
+body
+{
+    font-family: 'Lato', sans-serif;
+}
+
 h2 {
     color: #000E4A;
+    font-weight:600;
 }
 
 p {
     font-size: 18px;
     font-weight: 400;
     color: #666;
-    line-height: 24px;
     margin-bottom: 30px;
+    font-weight:400
 }
 
 .col-sm-8 p 
@@ -152,6 +160,7 @@ p {
 .tab-content {
     box-shadow: 1px 15px 15px rgba(0, 0, 0, 0.2);
     border-radius: 0 0 3px 3px;
+    margin-bottom:25px;
 }
 
 .nav-tabs>li {
@@ -169,4 +178,53 @@ p {
 .nav-tabs>li.active>a:hover {
     color: #000d49;
     font-weight: 600;
+}
+
+.checkbox, .radio
+{
+    background:#efefef;
+    color:#fff;
+    font-weight:100;
+    padding:10px 20px 10px 15px;
+    display:inline-block;
+    border-radius:30px;
+    font-weight:300;
+    font-size:12px;
+    margin-bottom:12px;
+    color: #000d49;
+    border:1px solid #eee;
+    margin-right:3px;
+    transition:all ease-in-out .3s;
+}
+
+.checkbox:hover, .radio:hover
+{
+    border:1px solid #000d49;
+}
+
+.btn
+{
+    background:#000d49;
+    color:#fff;
+    border:none;
+    text-transform:uppercase;
+    padding:15px;
+    font-size:11px;
+    font-weight:200;
+    margin-right:5px;
+    margin-bottom:5px;
+    transition:all ease-in-out .3s;
+    border:1px solid #000d49;
+}
+
+.btn:hover
+{
+    background:#fff;
+    color:#000d49;
+    border:1px solid #000d49;
+}
+
+.btn i
+{
+    margin-right:5px;
 }

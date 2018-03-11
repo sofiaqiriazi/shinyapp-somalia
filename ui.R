@@ -72,7 +72,7 @@ shinyUI(
                  )
                )
       ),
-      tabPanel("IDPs", fluid = TRUE,
+      tabPanel("Internally Displaced Persons", fluid = TRUE,
                sidebarLayout(
                  sidebarPanel(
                   radioButtons("camp", "Choose camp", list_camps, selected = NULL, inline = FALSE)
