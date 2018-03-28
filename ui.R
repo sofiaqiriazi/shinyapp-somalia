@@ -29,7 +29,7 @@ list_regs <- rep(NA,18)
 #   list_regs[i] <- strsplit(regions[i],  "_(?=[^_]+$)",perl=TRUE)[[1]][1]
 # }
 
-list_regs <- c("Bay","Bakool","Banadir","Gedo", "Middle Juba", "Lower Juba",
+list_regs <- c("Awdal","Bay","Bakool","Banadir","Gedo", "Middle Juba", "Lower Juba",
                "Middle Shabelle", "Lower Shabelle", "Hiiraan", "Galgaduud", 
                "Mudug","Nugaal", "Bari", "Sanaag", "Sool", "Togdheer")
 
@@ -58,7 +58,7 @@ shinyUI(
       can explains the behaviour of seven years of historical data."),
     # Generate a row with a sidebar
     tabsetPanel(
-      tabPanel("Refugees", fluid = TRUE,
+      tabPanel("Internally Displaced Persons", fluid = TRUE,
                sidebarLayout(
                  sidebarPanel(
                    radioButtons("region", "Choose region", list_regs, selected = NULL, inline = FALSE),
@@ -72,7 +72,7 @@ shinyUI(
                  )
                )
       ),
-      tabPanel("Internally Displaced Persons", fluid = TRUE,
+      tabPanel("Refugees", fluid = TRUE,
                sidebarLayout(
                  sidebarPanel(
                   radioButtons("camp", "Choose camp", list_camps, selected = NULL, inline = FALSE)
