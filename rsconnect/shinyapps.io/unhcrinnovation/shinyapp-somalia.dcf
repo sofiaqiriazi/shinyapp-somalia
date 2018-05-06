@@ -1,0 +1,12 @@
+name: shinyapp-somalia
+title: shinyapp-somalia
+username:
+account: unhcrinnovation
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 310659
+bundleId: 1292561
+url: https://unhcrinnovation.shinyapps.io/shinyapp-somalia/
+when: 1522272158.34221
+asMultiple: FALSE
+asStatic: FALSE
