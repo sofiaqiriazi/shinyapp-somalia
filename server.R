@@ -15673,7 +15673,11 @@ shinyServer(function(input, output, session) {
 
     region <- input$region
     fmonths_start <- which(current.long$Date == monthStart(as.Date("2017-02-01")))
+<<<<<<< HEAD
     fmonths_end <- which(current.long$Date == monthStart(as.Date("2018-08-01")))
+=======
+    fmonths_end <- which(current.long$Date == monthStart(as.Date("2018-05-01")))
+>>>>>>> 9059e8e71921c0c09922df1b50a81e2a977d68de
     # prepare columns for the merged graph
 
 
@@ -15856,7 +15860,11 @@ output$graph1 <- renderPlotly({
 
    region <- input$camp
    fmonths_start <- which(current.long$Date == monthStart(as.Date("2017-02-01")))
+<<<<<<< HEAD
    fmonths_end <- which(current.long$Date == monthStart(as.Date("2018-08-01")))
+=======
+   fmonths_end <- which(current.long$Date == monthStart(as.Date("2018-05-01")))
+>>>>>>> 9059e8e71921c0c09922df1b50a81e2a977d68de
    # prepare columns for the merged graph
 
    fun_1 <- paste(predictions.long[start_point,region],"arrivals",sep="")
