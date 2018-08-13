@@ -1,20 +1,17 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1534161475313.000,
+    "created" : 1534163436349.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
     "hash" : "1335601420",
-    "id" : "6E13973C",
+    "id" : "F328BFC5",
     "lastKnownWriteTime" : 1534162367,
-    "last_content_update" : 1534162367097,
+    "last_content_update" : 1534162367,
     "path" : "C:/Users/sofia/somalia/server.R",
     "project_path" : "server.R",
     "properties" : {
-        "cursorPosition" : "15857,0",
-        "docOutlineVisible" : "1",
-        "scrollLine" : "15854"
     },
     "relative_order" : 1,
     "source_on_save" : false,
