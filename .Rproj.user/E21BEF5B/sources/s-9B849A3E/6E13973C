@@ -5,16 +5,16 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "1335601420",
     "id" : "6E13973C",
-    "lastKnownWriteTime" : 1534161819,
-    "last_content_update" : 1534161819,
+    "lastKnownWriteTime" : 1534162367,
+    "last_content_update" : 1534162367097,
     "path" : "C:/Users/sofia/somalia/server.R",
     "project_path" : "server.R",
     "properties" : {
-        "cursorPosition" : "179,120",
+        "cursorPosition" : "15857,0",
         "docOutlineVisible" : "1",
-        "scrollLine" : "171"
+        "scrollLine" : "15854"
     },
     "relative_order" : 1,
     "source_on_save" : false,
