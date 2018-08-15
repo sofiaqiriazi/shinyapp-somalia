@@ -4,7 +4,7 @@ var footer = '<div class="footer"><div class="container"><p>Project Jetson is a 
 
 $(document).ready(function(){
     setTimeout(function () {
-                $('.container').append(footer);
+                $('body').append(footer);
 }, 500);
     
 })
