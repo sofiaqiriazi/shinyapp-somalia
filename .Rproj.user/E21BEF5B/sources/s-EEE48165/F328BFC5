@@ -5,13 +5,14 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "1335601420",
+    "hash" : "0",
     "id" : "F328BFC5",
     "lastKnownWriteTime" : 1534162367,
     "last_content_update" : 1534162367,
     "path" : "C:/Users/sofia/somalia/server.R",
     "project_path" : "server.R",
     "properties" : {
+        "docOutlineVisible" : "1"
     },
     "relative_order" : 1,
     "source_on_save" : false,
