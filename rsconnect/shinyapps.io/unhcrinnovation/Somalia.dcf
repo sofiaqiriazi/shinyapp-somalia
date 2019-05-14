@@ -1,12 +1,12 @@
-name: somalia
-title: somalia
+name: Somalia
+title: Somalia
 username:
 account: unhcrinnovation
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 257996
-bundleId: 1532529
+bundleId: 2083465
 url: https://unhcrinnovation.shinyapps.io/Somalia/
-when: 1534163507.91591
+when: 1557848012.26403
 asMultiple: FALSE
 asStatic: FALSE
